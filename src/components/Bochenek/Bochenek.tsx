@@ -5,7 +5,6 @@ interface BochenekProps {
 }
 
 const Bochenek: FC = (props: BochenekProps) => {
-  const { t, i18n } = useTranslation();
   return (
     <Wrapper>
       This is your Bochenek component!
