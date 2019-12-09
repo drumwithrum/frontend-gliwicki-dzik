@@ -1,15 +1,14 @@
 import React, { FC } from 'react';
-import { Bochenek } from 'components';
+import { View } from 'components';
 
 interface StartingPageProps {
 }
 
 const StartingPage: FC = (props: StartingPageProps) => {
   return (
-    <div className="wrapper">
-      This is your StartingPage component!
-      <Bochenek />
-    </div>
+    <View>
+      Here tu kontent
+    </View>
   );
 };
 
