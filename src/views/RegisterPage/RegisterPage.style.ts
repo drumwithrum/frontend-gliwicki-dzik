@@ -23,7 +23,7 @@ export const Layout = styled('div')`
 `;
 
 export const FormWrapper = styled('div')`
-  width: 400px;
+  min-width: 400px;
   min-height: 550px;
   background-color: ${white};
   padding: 32px;
@@ -34,6 +34,7 @@ export const FormWrapper = styled('div')`
 `;
 
 export const Header = styled('div')`
+  font-family: Montserrat;
   color: ${primary.main};
   font-size: 24px;
   align-self: flex-start;

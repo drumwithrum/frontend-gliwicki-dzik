@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import backgroundSrc from './images/bg.jpg';
+import backgroundSrc from './images/gym.jpg';
 import { View, Button as BaseButton } from 'components';
 import { style } from 'config';
 
@@ -23,7 +23,7 @@ export const Layout = styled('div')`
 `;
 
 export const FormWrapper = styled('div')`
-  width: 400px;
+  min-width: 400px;
   min-height: 550px;
   background-color: ${white};
   padding: 32px;
@@ -34,6 +34,7 @@ export const FormWrapper = styled('div')`
 `;
 
 export const Header = styled('div')`
+  font-family: Montserrat;
   color: ${primary.main};
   font-size: 24px;
   align-self: flex-start;
@@ -41,22 +42,5 @@ export const Header = styled('div')`
 `;
 
 export const Content = styled('div')`
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Typography = styled('div')`
-  font-family: Montserrat;
-  font-size: 12px;
-  & span {
-    cursor: pointer;
-    font-weight: bold;
-  }
-`;
-
-export const Button = styled(BaseButton)`
-  margin-top: 32px;
-  width: 100%;
-  margin-bottom: 16px;
+  z-index: 99;
 `;

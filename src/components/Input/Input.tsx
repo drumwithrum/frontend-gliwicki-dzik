@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Wrapper, InputBase, Icon } from './Input.style';
+import { Wrapper, InputBase, Icon, Label } from './Input.style';
 
 interface InputProps {
   placeholder?: string;
@@ -11,6 +11,7 @@ interface InputProps {
   color?: string;
   backgroundColor?: string;
   inputProps ?: any;
+  label?: string;
 }
 
 const Input: FC<InputProps> = ({
@@ -19,6 +20,7 @@ const Input: FC<InputProps> = ({
   value = '',
   name,
   type = 'text',
+  label = '',
   color,
   backgroundColor,
   icon,
@@ -32,6 +34,7 @@ const Input: FC<InputProps> = ({
   };
   return (
     <Wrapper {...props}>
+      {label && <Label>{label}</Label>}
       <InputBase
         onChange={handleChange}
         placeholder={placeholder}

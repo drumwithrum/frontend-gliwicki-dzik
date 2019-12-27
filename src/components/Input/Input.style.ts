@@ -4,13 +4,14 @@ import { style } from 'config';
 const { palette: { white, black, grey, primary } } = style;
 
 export const Wrapper = styled('div')`
-  height: 42px;
+  min-height: 42px;
   width: 100%;
   position: relative;
 `;
 
 export const InputBase = styled('input')`
   height: 100%;
+  height: 42px;
   width: 100%;
   font-family: Montserrat;
   font-style: normal;
@@ -28,11 +29,20 @@ export const InputBase = styled('input')`
   background-color: ${(p: any) => p.backgroundColor || white};
   border: 2px solid ${(p: any) => p.color || primary.main};
   &::placeholder {
-    color: ${(p: any) => p.color || black};
+    color: ${(p: any) => p.color || primary.main}};
   }
 `;
 
 export const Icon = styled('img')`
+  height: 22px;
+  width: 22px;
+  bottom: 10px;
   position: absolute;
-  right: 6px;
+  right: 10px;
+`;
+
+export const Label = styled('div')`
+  font-family: Montserrat;
+  font-size: 14px;
+  color: ${(p: any) => p.color || primary.main};
 `;

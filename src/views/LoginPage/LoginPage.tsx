@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import LoginForm from './LoginForm';
-import { Button } from 'components';
-import { Wrapper, Layout, FormWrapper, Header, Content } from './LoginPage.style';
+import { Wrapper, Layout, FormWrapper, Header, Content, Typography, Button } from './LoginPage.style';
 
 interface LoginPageProps {
 }
@@ -11,10 +10,13 @@ const LoginPage: FC<LoginPageProps> = () => {
     <Wrapper>
       <Layout />
       <Content>
-        <Header>Zaloguj się.</Header>
         <FormWrapper>
+          <Header>Zaloguj się.</Header>
           <LoginForm />
           <Button>Zaloguj</Button>
+          <Typography>
+            Nie posiadasz jeszcze konta u nas? <span>Kliknij tutaj</span> żeby się zarejestrować!
+          </Typography>
         </FormWrapper>
       </Content>
     </Wrapper>
