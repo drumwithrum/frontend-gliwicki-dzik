@@ -11,7 +11,7 @@ const ExcercisesGallery: FC = (props: ExcercisesGalleryProps) => {
   return (
     <Wrapper>
       <ListWrapper>
-        <ExcercisesList onClick={setVideoId} />
+        <ExcercisesList onClick={setVideoId} activeVideoId={videoId} />
       </ListWrapper>
       <PlayerWrapper>
         <ExcercisesPlayer videoId={videoId} />

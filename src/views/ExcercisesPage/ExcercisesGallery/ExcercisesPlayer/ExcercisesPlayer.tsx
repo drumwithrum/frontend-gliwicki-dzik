@@ -17,12 +17,10 @@ const opts: any = {
 const ExcercisesPlayer: FC<ExcercisesPlayerProps> = ({
   videoId,
 }) => {
-  const onReady = (e: any) => e.target.pauseVideo();
   return (
     <YouTube
       videoId={videoId}
       opts={opts}
-      // onReady={onReady}
     />
   );
 };

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { ListItem as BaseListItem } from '@material-ui/core';
 import { style } from 'config';
 
-const { palette: { white, grey, black } } = style;
+const { palette: { white, grey, black, primary: { main } } } = style;
 
 export const Wrapper = styled('div')`
   height: 100%;
@@ -12,10 +12,13 @@ export const Wrapper = styled('div')`
 `;
 
 export const ListItem = styled(BaseListItem)`
+  background-color: ${(p: any) => p.isActive ? main : 'none'} !important;
+  color: ${(p: any) => p.isActive ? white : black} !important;
+  transition: all 2s;
   &:not(:last-child) {
-    border-bottom: 1px solid ${black};
+    border-bottom: ${(p: any) => p.isActive ? 'none' : `1px solid ${black}`};
   }
-`;
+` as any;
 
 export const EmptyListResult = styled('div')`
   font-size: 16px;
