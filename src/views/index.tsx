@@ -8,16 +8,18 @@ import StartingPage from './StartingPage';
 import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
 import ExcercisesPage from './ExcercisesPage';
+import WorkoutsPage from './WorkoutsPage';
 
 const store = configureStore();
 
 export const Router = (
   <Switch>
-    <Route exact path="/" component={StartingPage} />
+    <Route exact path="/home" component={StartingPage} />
     <Route exact path="/login" component={LoginPage} />
     <Route exact path="/register" component={RegisterPage} />
     <Route exact path="/excercises" component={ExcercisesPage} />
-    <Route path="*" render={() => <Redirect to="/" />} />
+    <Route exact path="/workouts" component={WorkoutsPage} />
+    <Route path="*" render={() => <Redirect to="/home" />} />
   </Switch>
 );
 

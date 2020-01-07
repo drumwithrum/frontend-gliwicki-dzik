@@ -1,24 +1,40 @@
 import React, { Component } from 'react';
 import NavItem from './NavItem';
+import { routing } from 'config';
+import { withRouter, RouteComponentProps } from 'react-router';
 import { Wrapper, LogoContainer, NavItemsContainer } from './AppBar.style';
 
-interface AppBarProps {
+interface AppBarProps extends RouteComponentProps {
 }
 
 class AppBar extends Component<AppBarProps> {
-  public paths: string[] = ['Start', 'Atlas ćwiczeń', 'Treningi'];
   public render() {
+    const { history } = this.props;
     return (
-    <Wrapper>
-      <LogoContainer>
-        gliwicki dzik
-      </LogoContainer>
-      <NavItemsContainer>
-        {this.paths.map((item) => <NavItem key={item} title={item} active={item === 'Start'}/>)}
-      </NavItemsContainer>
-    </Wrapper>
+      <Wrapper>
+        <LogoContainer>
+          gliwicki dzik
+        </LogoContainer>
+        <NavItemsContainer>
+          {routing.routeTitles
+            .map((item) => {
+              const currentPath = window.location.pathname;
+              const url = routing.getUrl(item);
+              const isActive = currentPath.toLowerCase().includes(url);
+              return (
+                <NavItem
+                  key={item}
+                  title={item}
+                  active={isActive}
+                  onClick={() => history.push(url)}
+                />
+              );
+            })
+          }
+        </NavItemsContainer>
+      </Wrapper>
     );
   }
 }
 
-export default AppBar;
+export default withRouter(AppBar);

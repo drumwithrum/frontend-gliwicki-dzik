@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import { List } from '@material-ui/core';
 import { Input } from 'components';
 import SearchIcon from '../../images/search.svg';
@@ -6,63 +6,65 @@ import FrownIcon from '../../images/frown.svg';
 import { Wrapper, ListItem, EmptyListResult, Icon } from './ExcercisesList.style';
 
 interface ExcercisesListProps {
-  onClick: (id: string) => void;
-  activeVideoId?: string;
+  onClick?: (id: string) => void;
+  onDelete?: (index: number) => void;
+  disableSearch?: boolean;
+  searchPlaceholder?: string;
+  isAddingTraining?: boolean;
+  data: {
+    title: string;
+    id: string;
+  }[];
 }
-
-const data = [{
-  title: 'Wyciskanie sztangi na ławce płaskiej',
-  url: 'https://www.youtube.com/watch?v=bbJzacwZw9g',
-}, {
-  title: 'Wyciskanie żołnierskie',
-  url: 'https://www.youtube.com/watch?v=x-imhzh_mMU',
-}, {
-  title: 'Wyciskanie skośne',
-  url: 'https://www.youtube.com/watch?v=iENj-VzObSc',
-}];
 
 const ExcercisesList: FC<ExcercisesListProps> = ({
   onClick,
-  activeVideoId,
+  disableSearch = false,
+  isAddingTraining = false,
+  searchPlaceholder = '',
+  data = [],
 }) => {
-  useEffect(() => {
-    if (data.length > 0) {
-      onClick(getVideoId(data[0].url));
-    }
-  }, []);
   const [searchBoxValue, setSearchBoxValue] = useState('');
   const onInputChange = (value: string) => setSearchBoxValue(value.trim().toLowerCase());
   const listItems = data.filter((item) => item.title.toLowerCase().includes(searchBoxValue));
-  const getVideoId = (url: string) => url.split('watch?v=')[1];
+
+  const handleClick = (id: string) => {
+    if (!Boolean(onClick)) {
+      return;
+    };
+    onClick!(id);
+  };
+
   return (
     <Wrapper>
-      <Input
-        name="search"
-        placeholder="Wyszukaj ćwiczenie"
-        icon={SearchIcon}
-        onChange={onInputChange}
-      />
+      {!disableSearch
+        ? (
+          <Input
+            name="search"
+            placeholder={searchPlaceholder || 'Wyszukaj ćwiczenie'}
+            icon={SearchIcon}
+            onChange={onInputChange}
+          />
+        ) : null}
       <List>
         {listItems.map((item) => {
-          const videoId = getVideoId(item.url);
           return (
             <ListItem
               key={item.title}
               button
-              onClick={() => onClick(videoId)}
-              isActive={videoId === activeVideoId}
+              onClick={() => handleClick(item.id)}
             >
               {item.title}
             </ListItem>
             );
-          }
+          },
         )}
       </List>
       {(listItems.length < 1)
         ? (
           <EmptyListResult>
-            Obawiam się, że nie mamy ćwiczenia, którego szukasz
-            <Icon src={FrownIcon} />
+            {isAddingTraining ? 'Kliknij w ćwiczenie aby dodać je do treningu' : 'Nie masz takiego treningu'}
+            {!isAddingTraining && <Icon src={FrownIcon} />}
           </EmptyListResult>
         ) : null
       }
