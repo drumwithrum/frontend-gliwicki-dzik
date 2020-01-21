@@ -3,13 +3,18 @@ import { style } from 'config';
 
 const { palette: { white, black, grey, primary } } = style;
 
+interface InputProps {
+  color?: string;
+  backgroundColor?: string;
+}
+
 export const Wrapper = styled('div')`
   min-height: 42px;
   width: 100%;
   position: relative;
 `;
 
-export const InputBase = styled('input')`
+export const InputBase = styled.input<InputProps>`
   height: 100%;
   height: 42px;
   width: 100%;
@@ -25,11 +30,11 @@ export const InputBase = styled('input')`
   outline: none;
   border: none;
   box-sizing: border-box;
-  color: ${(p: any) => p.color || primary.main};
-  background-color: ${(p: any) => p.backgroundColor || white};
-  border: 2px solid ${(p: any) => p.color || primary.main};
+  color: ${(p: InputProps) => p.color || primary.main};
+  background-color: ${(p: InputProps) => p.backgroundColor || white};
+  border: 2px solid ${(p: InputProps) => p.color || primary.main};
   &::placeholder {
-    color: ${(p: any) => p.color || primary.main}};
+    color: ${(p: InputProps) => p.color || primary.main}};
   }
 `;
 
@@ -41,7 +46,7 @@ export const Icon = styled('img')`
   right: 10px;
 `;
 
-export const Label = styled('div')`
+export const Label = styled.div<InputProps>`
   font-family: Montserrat;
   font-size: 14px;
   color: ${(p: any) => p.color || primary.main};

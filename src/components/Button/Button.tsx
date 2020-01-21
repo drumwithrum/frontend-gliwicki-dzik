@@ -15,9 +15,9 @@ interface RippleStyle {
 
 const Button: FC<ButtonProps> = ({ children, onClick, ...props }) => {
   const initialState: RippleStyle[] = [];
-  const [ripples, setRipples] = useState(initialState);
+  const [ripples, setRipples] = useState<RippleStyle[]>(initialState);
 
-  const onRippleAdd = (e: any) => {
+  const onRippleAdd = (e: React.MouseEvent<HTMLElement>): void => {
     const rippleContainer = e.currentTarget;
     const size = rippleContainer.offsetWidth;
     const pos = rippleContainer.getBoundingClientRect();
@@ -33,7 +33,7 @@ const Button: FC<ButtonProps> = ({ children, onClick, ...props }) => {
     setRipples([...ripples, ripple]);
   };
 
-  const handleClick = (e: any) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     onRippleAdd(e);
     if (onClick) {
       onClick();

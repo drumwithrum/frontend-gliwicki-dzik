@@ -12,17 +12,22 @@ class Routing {
     url: '/workouts',
     title: 'Treningi',
   };
-  public static get routes() {
+  public static RANKING = {
+    url: '/ranking',
+    title: 'Ranking',
+  };
+  public static get routes(): {url: string; title: string}[] {
     return [
       this.HOME,
       this.EXCERCISES,
       this.WORKOUTS,
+      this.RANKING,
     ];
   }
-  public static get routeTitles() {
+  public static get routeTitles(): string[] {
     return this.routes.map((item) => item.title);
   }
-  public static getUrl = (title: string) => {
+  public static getUrl = (title: string): string => {
     const route = Routing.routes
       .find((item: any) => item.title.toLowerCase().includes(title.toLowerCase()));
     return route ? route.url : Routing.HOME.url;

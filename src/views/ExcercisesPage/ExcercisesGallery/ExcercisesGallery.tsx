@@ -7,7 +7,7 @@ interface ExcercisesGalleryProps {
 }
 
 const ExcercisesGallery: FC = (props: ExcercisesGalleryProps) => {
-  const [videoId, setVideoId] = useState('');
+  const [videoId, setVideoId] = useState<string>('');
   return (
     <Wrapper>
       <ListWrapper>
