@@ -4,9 +4,9 @@ import config from 'config';
 
 export const CALL_API = 'CALL_API';
 
-interface CallApiActionSettings extends AxiosRequestConfig {
+interface CallApiActionSettings<T> extends AxiosRequestConfig {
   endpoint: string;
-  payload?: any;
+  payload?: T;
 }
 
 export interface CallApiActionResponse {
@@ -16,8 +16,8 @@ export interface CallApiActionResponse {
   apiAction?: ApiActionResult;
 }
 
-export interface CallApiAction {
-  [CALL_API]: CallApiActionSettings;
+export interface CallApiAction<T> {
+  [CALL_API]: CallApiActionSettings<T>;
 }
 
 export enum ApiActionResult {
@@ -28,7 +28,7 @@ export enum ApiActionResult {
 
 const { API_URL } = config;
 
-async function callApi(endpoint: string, settings: any, apiUrl = API_URL) {
+async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promise<AxiosResponse> {
   try {
     const isAuthenticated = Boolean(window.localStorage.getItem('gwdk-token'));
     if (isAuthenticated) {

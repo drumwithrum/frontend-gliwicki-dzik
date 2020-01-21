@@ -31,9 +31,9 @@ const ExcercisesList: FC<ExcercisesListProps> = ({
     }
   }, []);
   const [searchBoxValue, setSearchBoxValue] = useState('');
-  const onInputChange = (value: string) => setSearchBoxValue(value.trim().toLowerCase());
+  const onInputChange = (value: string): void => setSearchBoxValue(value.trim().toLowerCase());
   const listItems = data.filter((item) => item.title.toLowerCase().includes(searchBoxValue));
-  const getVideoId = (url: string) => url.split('watch?v=')[1];
+  const getVideoId = (url: string): string => url.split('watch?v=')[1];
   return (
     <Wrapper>
       <Input

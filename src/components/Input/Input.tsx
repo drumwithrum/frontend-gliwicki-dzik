@@ -1,7 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { Wrapper, InputBase, Icon, Label } from './Input.style';
 
-interface InputProps {
+interface InputProps<T> {
   placeholder?: string;
   name: string;
   onChange?: (value: string) => void;
@@ -10,11 +10,11 @@ interface InputProps {
   icon?: string;
   color?: string;
   backgroundColor?: string;
-  inputProps ?: any;
+  inputProps ?: T;
   label?: string;
 }
 
-const Input: FC<InputProps> = ({
+const Input = <T extends {}>({
   placeholder = '',
   onChange,
   value = '',
@@ -22,11 +22,11 @@ const Input: FC<InputProps> = ({
   type = 'text',
   label = '',
   color,
-  backgroundColor,
+  backgroundColor = 'grey',
   icon,
   inputProps,
   ...props
-}) => {
+}: InputProps<T>) => {
   const [inputValue, onInputChange] = useState(value);
   const handleChange = (e: any) => {
     if (onChange) { onChange(e.target.value); }

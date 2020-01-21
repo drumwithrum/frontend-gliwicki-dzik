@@ -26,7 +26,7 @@ class Table extends Component<TableProps> {
     this.setState({ columns });
   }
 
-  public onDragEnd = (result: any) => {
+  public onDragEnd = (result: any): void => {
     const { destination, source, draggableId } = result;
     if (!destination) {
       return;
@@ -104,14 +104,14 @@ class Table extends Component<TableProps> {
     );
   }
 
-  private getItems = (itemIds: string[]) => {
+  private getItems = (itemIds: string[]): {id: string; title: string}[] => {
     return itemIds.map((item) => ({
       id: item,
       title: `Item o ID: ${item}`,
     }));
   }
 
-  private renderColumns = () => {
+  private renderColumns = (): JSX.Element[] => {
     const { columns } = this.state;
     const cols = Object.values(columns);
     return cols.map((item: any) => (
