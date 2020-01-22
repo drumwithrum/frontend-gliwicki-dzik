@@ -43,7 +43,8 @@ export const SelectBase = styled(Select)`
       background-color: ${(p: InputProps) => p.backgroundColor || white};
     }
   };
-`;
+` as any;
+
 export const SelectItem = styled(MenuItem)`
     padding-left: 15px !important;
     color: ${(p: InputProps) => p.color || primary.main} !important;

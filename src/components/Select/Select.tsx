@@ -51,7 +51,7 @@ const Select = <T extends {}>({
         {...input}
       >
         {options.map((item) => (
-          <SelectItem value={item.value} key={`${name}-select-${value}`}>{item.title}</SelectItem>
+          <SelectItem value={item.value} key={`${item.title}-select-${item.value}`}>{item.title}</SelectItem>
         ))}
       </SelectBase>
       {icon && <Icon src={icon} alt={`${name}-input-icon`} />}

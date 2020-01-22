@@ -33,3 +33,12 @@ export const BottomWrapper = styled('div')`
   justify-content: center;
   align-items: center;
 `;
+
+export const Title = styled('div')`
+  color: ${main};
+  font-size: 48px;
+  padding-left: 48px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+`;
