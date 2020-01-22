@@ -2,7 +2,8 @@ import React, { useState, FC } from 'react';
 import { ButtonBase, Ripple } from './Button.style';
 
 interface ButtonProps {
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  id?: string;
 }
 
 interface RippleStyle {
@@ -36,7 +37,7 @@ const Button: FC<ButtonProps> = ({ children, onClick, ...props }) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     onRippleAdd(e);
     if (onClick) {
-      onClick();
+      onClick(e);
     }
   };
 

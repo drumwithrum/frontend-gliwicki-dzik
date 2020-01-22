@@ -15,6 +15,7 @@ export const Wrapper = styled('div')`
   box-sizing: border-box;
   background-color: ${grey[900]};
   z-index: 999;
+  padding-right: 10px;
 `;
 
 export const LogoContainer = styled('div')`

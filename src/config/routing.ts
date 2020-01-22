@@ -16,6 +16,14 @@ class Routing {
     url: '/ranking',
     title: 'Ranking',
   };
+  public static LOGIN = {
+    url: '/login',
+    title: 'Login',
+  };
+  public static REGISTER = {
+    url: '/register',
+    title: 'Register',
+  };
   public static get routes(): {url: string; title: string}[] {
     return [
       this.HOME,

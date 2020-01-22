@@ -31,7 +31,7 @@ const { API_URL } = config;
 async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promise<AxiosResponse> {
   try {
     const isAuthenticated = Boolean(window.localStorage.getItem('gwdk-token'));
-    if (isAuthenticated) {
+    if (!isAuthenticated) {
       window.location.replace('/login');
     }
     const token = window.localStorage.getItem('gwdk-token') || null;

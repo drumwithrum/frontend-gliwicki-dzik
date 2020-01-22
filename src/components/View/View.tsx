@@ -7,7 +7,7 @@ interface ViewProps {
 }
 
 class View extends Component<ViewProps> {
-  private defaultProps = {
+  public static defaultProps = {
     hideAppBar: false,
   };
 
