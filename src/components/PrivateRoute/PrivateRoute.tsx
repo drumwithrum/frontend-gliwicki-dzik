@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router';
 import State from 'types/store';
 import Routing from 'config/routing';
-import Auth from 'config/auth';
+import Auth from 'utils/auth';
 
 class PrivateRoute extends PureComponent<any> {
   public state = {

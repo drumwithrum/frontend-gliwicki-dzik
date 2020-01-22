@@ -7,19 +7,22 @@ import {
   ExpansionPanelSummary,
   ExpansionPanel,
 } from './UserMenu.style';
+import { withRouter, RouteComponentProps } from 'react-router';
+import Auth from 'utils/auth';
+import Routing from 'config/routing';
 import MenuItem from '@material-ui/core/MenuItem';
 import userIcon from '../icons/user.svg';
 
-interface UserMenuProps {
+interface UserMenuProps extends RouteComponentProps {
   title?: string;
 }
 
 const USER_MENU_ID = 'user-menu';
 
-const UserMenu: FC<UserMenuProps> = ({ title = '' }) => {
+const UserMenu: FC<UserMenuProps> = ({ history }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
-  const onWindowClick = (e: any) => {
+  const onWindowClick = () => {
     setIsOpen(false);
   };
 
@@ -27,15 +30,22 @@ const UserMenu: FC<UserMenuProps> = ({ title = '' }) => {
     window.addEventListener('click', onWindowClick);
   });
 
-  const handleClose = (e: any) => {
+  const handleClose = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsOpen(false);
   };
 
-  const toggleMenu = (e: any) => {
+  const toggleMenu = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
+
+  const onLogout = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    Auth.removeToken();
+    history.push(Routing.LOGIN.url);
+  };
+
   return (
     <Wrapper id={USER_MENU_ID}>
       <UserIconContainer onClick={toggleMenu}>
@@ -47,11 +57,11 @@ const UserMenu: FC<UserMenuProps> = ({ title = '' }) => {
         <ExpansionPanelSummary />
         <ExpansionPanelDetails>
           <MenuItem onClick={handleClose}>Mój profil</MenuItem>
-          <MenuItem onClick={handleClose}>Wyloguj</MenuItem>
+          <MenuItem onClick={onLogout}>Wyloguj</MenuItem>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </Wrapper>
   );
 };
 
-export default UserMenu;
+export default withRouter(UserMenu);

@@ -10,7 +10,6 @@ interface AppBarProps extends RouteComponentProps {
 
 class AppBar extends Component<AppBarProps> {
   public render() {
-    const { history } = this.props;
     return (
       <Wrapper>
         <LogoContainer>
@@ -27,7 +26,7 @@ class AppBar extends Component<AppBarProps> {
                   key={item}
                   title={item}
                   active={isActive}
-                  onClick={() => history.push(url)}
+                  onClick={(e: React.MouseEvent) => this.handleItemClick(e, url)}
                 />
               );
             })
@@ -36,6 +35,12 @@ class AppBar extends Component<AppBarProps> {
         </NavItemsContainer>
       </Wrapper>
     );
+  }
+
+  private handleItemClick = (e: React.MouseEvent , url: string) => {
+    const { history } = this.props;
+    e.stopPropagation();
+    history.push(url);
   }
 }
 

@@ -6,6 +6,10 @@ class Auth {
   public static saveToken(token: string) {
     return Boolean(window.localStorage.setItem('gwdk-token', token));
   }
+
+  public static removeToken() {
+    return Boolean(window.localStorage.removeItem('gwdk-token'));
+  }
 }
 
 export default Auth;
