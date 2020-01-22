@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NavItem from './NavItem';
 import { routing } from 'config';
 import { withRouter, RouteComponentProps } from 'react-router';
+import UserMenu from './UserMenu';
 import { Wrapper, LogoContainer, NavItemsContainer } from './AppBar.style';
 
 interface AppBarProps extends RouteComponentProps {
@@ -31,6 +32,7 @@ class AppBar extends Component<AppBarProps> {
               );
             })
           }
+          <UserMenu />
         </NavItemsContainer>
       </Wrapper>
     );

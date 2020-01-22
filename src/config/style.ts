@@ -4,7 +4,7 @@ export default {
     black: '#000',
     white: '#FFF',
     grey: {
-      [900]: '#101010',
+      900: '#101010',
     },
     primary: {
       light: '#FF5577',

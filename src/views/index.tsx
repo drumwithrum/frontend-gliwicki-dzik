@@ -4,6 +4,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Route, Switch, Redirect } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 import configureStore, { history } from 'store/configureStore';
+import { PrivateRoute } from 'components';
 import StartingPage from './StartingPage';
 import LoginPage from './LoginPage';
 import RegisterPage from './RegisterPage';
