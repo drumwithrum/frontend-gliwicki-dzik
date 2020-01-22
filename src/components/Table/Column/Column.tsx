@@ -12,7 +12,7 @@ interface ColumnProps {
 }
 
 class Column extends Component<ColumnProps> {
-  private defaultProps = {
+  public static defaultProps = {
     items: [],
   };
 

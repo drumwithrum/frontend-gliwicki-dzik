@@ -3,6 +3,7 @@ import { ButtonBase, Ripple } from './Button.style';
 
 interface ButtonProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  id?: string;
 }
 
 interface RippleStyle {

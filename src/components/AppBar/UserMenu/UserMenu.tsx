@@ -14,17 +14,31 @@ interface UserMenuProps {
   title?: string;
 }
 
+const USER_MENU_ID = 'user-menu';
+
 const UserMenu: FC<UserMenuProps> = ({ title = '' }) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
-  const handleClose = () => {
+
+  const onWindowClick = (e: any) => {
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    window.addEventListener('click', onWindowClick);
+  });
+
+  const handleClose = (e: any) => {
+    e.stopPropagation();
+    setIsOpen(false);
+  };
+
+  const toggleMenu = (e: any) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
   return (
-    <Wrapper>
-      <UserIconContainer onClick={handleOpen}>
+    <Wrapper id={USER_MENU_ID}>
+      <UserIconContainer onClick={toggleMenu}>
         <UserIcon
           src={userIcon}
         />

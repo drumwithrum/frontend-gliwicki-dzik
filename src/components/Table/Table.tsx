@@ -13,11 +13,11 @@ interface TableProps {
 }
 
 class Table extends Component<TableProps> {
-  public state = {
+  public static defaultProps = {
     columns: {},
   };
 
-  private defaultProps = {
+  public state = {
     columns: {},
   };
 

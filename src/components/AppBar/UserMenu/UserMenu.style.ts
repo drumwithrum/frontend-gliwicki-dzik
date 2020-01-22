@@ -19,6 +19,7 @@ export const UserIconContainer = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 10px;
 `;
 
 export const UserIcon = styled('img')`
