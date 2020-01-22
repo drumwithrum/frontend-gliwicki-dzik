@@ -40,7 +40,7 @@ const ExcercisesList: FC<ExcercisesListProps> = ({
         name="search"
         placeholder="Wyszukaj ćwiczenie"
         icon={SearchIcon}
-        onChange={onInputChange}
+        onChange={() => onInputChange}
       />
       <List>
         {listItems.map((item) => {

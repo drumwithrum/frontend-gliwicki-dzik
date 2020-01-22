@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { Wrapper, InputBase, Icon, Label } from './Input.style';
 
-interface InputProps<T> {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string;
   name: string;
-  onChange?: (value: string) => void;
   type?: string;
   value?: string;
   icon?: string;
   color?: string;
   backgroundColor?: string;
-  inputProps ?: T;
   label?: string;
 }
 
-const Input = <T extends {}>({
+const Input: FC<InputProps> = ({
   placeholder = '',
   onChange,
   value = '',
@@ -24,16 +22,15 @@ const Input = <T extends {}>({
   color,
   backgroundColor = 'grey',
   icon,
-  inputProps,
-  ...props
-}: InputProps<T>) => {
+  ...restProps
+}) => {
   const [inputValue, onInputChange] = useState(value);
   const handleChange = (e: any) => {
     if (onChange) { onChange(e.target.value); }
     onInputChange(e.target.value);
   };
   return (
-    <Wrapper {...props}>
+    <Wrapper {...restProps}>
       {label && <Label>{label}</Label>}
       <InputBase
         onChange={handleChange}
@@ -42,7 +39,7 @@ const Input = <T extends {}>({
         type={type}
         color={color}
         backgroundColor={backgroundColor}
-        {...inputProps}
+        {...restProps}
       />
       {icon && <Icon src={icon} alt={`${name}-input-icon`} />}
     </Wrapper>

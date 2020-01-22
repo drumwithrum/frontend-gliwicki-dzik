@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react';
 import { ButtonBase, Ripple } from './Button.style';
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
 }
 

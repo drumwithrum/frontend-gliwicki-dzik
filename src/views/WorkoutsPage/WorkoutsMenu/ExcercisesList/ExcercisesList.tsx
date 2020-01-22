@@ -43,7 +43,8 @@ const ExcercisesList: FC<ExcercisesListProps> = ({
             name="search"
             placeholder={searchPlaceholder || 'Wyszukaj ćwiczenie'}
             icon={SearchIcon}
-            onChange={onInputChange}
+            onChange={() => onInputChange}
+            min={1}
           />
         ) : null}
       <List>
