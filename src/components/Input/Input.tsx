@@ -12,6 +12,8 @@ interface InputProps<T> {
   backgroundColor?: string;
   inputProps ?: T;
   label?: string;
+  input?: object;
+  min?: number;
 }
 
 const Input = <T extends {}>({
@@ -22,9 +24,11 @@ const Input = <T extends {}>({
   type = 'text',
   label = '',
   color,
-  backgroundColor = 'grey',
+  backgroundColor = 'white',
   icon,
   inputProps,
+  min,
+  input,
   ...props
 }: InputProps<T>) => {
   const [inputValue, onInputChange] = useState(value);
@@ -42,7 +46,9 @@ const Input = <T extends {}>({
         type={type}
         color={color}
         backgroundColor={backgroundColor}
+        min={min}
         {...inputProps}
+        {...input}
       />
       {icon && <Icon src={icon} alt={`${name}-input-icon`} />}
     </Wrapper>

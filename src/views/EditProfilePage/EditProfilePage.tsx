@@ -1,7 +1,13 @@
 import React, { PureComponent } from 'react';
 import { Wrapper, Layout, Content } from './EditProfilePage.style';
+import { connect } from 'react-redux';
+import State from 'types/store';
+import EditProfileForm from './EditProfileForm';
+import { Button } from 'components';
+import { submit } from 'redux-form';
 
 interface EditProfilePageProps {
+  submit: typeof submit;
 }
 
 class EditProfilePage extends PureComponent<EditProfilePageProps> {
@@ -9,15 +15,24 @@ class EditProfilePage extends PureComponent<EditProfilePageProps> {
   };
 
   public render() {
+    const { submit } = this.props;
     return(
       <Wrapper>
         <Layout />
         <Content>
-          eluwina
+          <EditProfileForm />
+          <Button onClick={() => submit('edit-profile-form')}>Zapisz</Button>
         </Content>
       </Wrapper>
     );
   }
 }
 
-export default EditProfilePage;
+const mapStateToProps = (state: State) => ({
+});
+
+const mapDispatchToProps = {
+  submit,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfilePage);

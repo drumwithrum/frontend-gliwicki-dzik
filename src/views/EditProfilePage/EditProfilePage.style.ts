@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import {View} from 'components';
+import { View } from 'components';
 import backgroundSrc from './images/gym.jpg';
-import {style} from "config/index";
+import { style } from 'config';
 
 const { palette: { white, grey, black, primary: { main } } } = style;
 
 export const Wrapper = styled(View)`
-  background-color: black;
+  background-color: ${black};
   overflow: hidden;
 `;
 
@@ -24,4 +24,5 @@ export const Layout = styled('div')`
 
 export const Content = styled('div')`
   z-index: 99;
+  background-color: ${white};
 `;
