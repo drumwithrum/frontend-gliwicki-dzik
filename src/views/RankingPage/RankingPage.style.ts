@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {View} from 'components';
 import backgroundSrc from './images/gym.jpg';
-import {style} from "config/index";
+import {style} from 'config/index';
 
 const { palette: { white, grey, black, primary: { main } } } = style;
 

@@ -6,12 +6,13 @@ const { palette: { white, grey, black, primary: { main } } } = style;
 export const Wrapper = styled('div')`
   box-sizing:border-box;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: ${(p: any) => p.flex || 'row'};
   padding: 16px;
   background-color: ${white};
   align-items: ${(p: any) => p.align || 'center'};
   height: 500px;
-  justify-content: ${(p: any) => p.justify || 'flex-start'};
+  justify-content: center;
 `;
 
 export const Title = styled('div')`
@@ -24,4 +25,9 @@ export const Title = styled('div')`
   text-align: center;
   align-items: center;
   color: ${main};
+`;
+
+export const Body = styled('div')`
+height: 80%;
+display: flex;
 `;
