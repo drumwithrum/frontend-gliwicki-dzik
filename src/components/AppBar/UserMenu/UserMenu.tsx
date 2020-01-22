@@ -30,9 +30,8 @@ const UserMenu: FC<UserMenuProps> = ({ history }) => {
     window.addEventListener('click', onWindowClick);
   });
 
-  const handleClose = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsOpen(false);
+  const onProfileClick = (e: React.MouseEvent) => {
+    history.push(Routing.PROFILE.url);
   };
 
   const toggleMenu = (e: React.MouseEvent) => {
@@ -56,7 +55,7 @@ const UserMenu: FC<UserMenuProps> = ({ history }) => {
       <ExpansionPanel expanded={isOpen}>
         <ExpansionPanelSummary />
         <ExpansionPanelDetails>
-          <MenuItem onClick={handleClose}>Mój profil</MenuItem>
+          <MenuItem onClick={onProfileClick}>Mój profil</MenuItem>
           <MenuItem onClick={onLogout}>Wyloguj</MenuItem>
         </ExpansionPanelDetails>
       </ExpansionPanel>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Wrapper, InputBase, Icon, Label } from './Input.style';
+import { Wrapper, SelectBase, Icon, Label, SelectItem } from './Select.style';
 
-interface InputProps<T> {
+interface SelectProps<T> {
   placeholder?: string;
   name: string;
   onChange?: (value: string) => void;
@@ -13,46 +13,50 @@ interface InputProps<T> {
   inputProps ?: T;
   label?: string;
   input?: object;
-  min?: number;
+  options?: {
+    value: string | number;
+    title: string | number;
+  }[];
 }
 
-const Input = <T extends {}>({
+const Select = <T extends {}>({
   placeholder = '',
   onChange,
   value = '',
   name,
-  type = 'text',
   label = '',
   color,
   backgroundColor = 'white',
   icon,
   inputProps,
-  min,
   input,
+  options = [],
   ...props
-}: InputProps<T>) => {
-  const [inputValue, onInputChange] = useState(value);
+}: SelectProps<T>) => {
+  const [inputValue, onSelectChange] = useState(value);
   const handleChange = (e: any) => {
     if (onChange) { onChange(e.target.value); }
-    onInputChange(e.target.value);
+    onSelectChange(e.target.value);
   };
   return (
     <Wrapper {...props}>
       {label && <Label>{label}</Label>}
-      <InputBase
+      <SelectBase
         onChange={handleChange}
         placeholder={placeholder}
         value={inputValue}
-        type={type}
-        color={color}
         backgroundColor={backgroundColor}
-        min={min}
+        disableUnderline
         {...inputProps}
         {...input}
-      />
+      >
+        {options.map((item) => (
+          <SelectItem value={item.value} key={`${item.title}-select-${item.value}`}>{item.title}</SelectItem>
+        ))}
+      </SelectBase>
       {icon && <Icon src={icon} alt={`${name}-input-icon`} />}
     </Wrapper>
   );
 };
 
-export default Input;
+export default Select;

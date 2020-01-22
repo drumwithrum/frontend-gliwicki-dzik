@@ -24,6 +24,10 @@ class Routing {
     url: '/register',
     title: 'Register',
   };
+  public static PROFILE = {
+    url: '/profile',
+    title: 'Profile',
+  };
   public static get routes(): {url: string; title: string}[] {
     return [
       this.HOME,
