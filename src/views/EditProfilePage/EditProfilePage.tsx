@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Wrapper, Layout, Content } from './EditProfilePage.style';
+import { Wrapper, Layout, Content, BottomWrapper } from './EditProfilePage.style';
 import { connect } from 'react-redux';
 import State from 'types/store';
 import EditProfileForm from './EditProfileForm';
@@ -21,7 +21,9 @@ class EditProfilePage extends PureComponent<EditProfilePageProps> {
         <Layout />
         <Content>
           <EditProfileForm />
-          <Button onClick={() => submit('edit-profile-form')}>Zapisz</Button>
+          <BottomWrapper>
+            <Button onClick={() => submit('edit-profile-form')}>Zapisz</Button>
+          </BottomWrapper>
         </Content>
       </Wrapper>
     );

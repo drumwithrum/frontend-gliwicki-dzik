@@ -1,12 +1,20 @@
 import React, { PureComponent } from 'react';
 import { Wrapper, Content, FieldWrapper } from './EditProfileForm.style';
 import Grid from '@material-ui/core/Grid';
-import { Input } from 'components';
+import { Input, Select } from 'components';
 import { reduxForm, InjectedFormProps, Field, Form } from 'redux-form';
 
 interface EditProfileFormProps extends InjectedFormProps {
   onSubmit?: () => void;
 }
+
+const genders = [{
+  title: 'Mężczyzna',
+  value: 'male',
+}, {
+  title: 'Kobieta',
+  value: 'female',
+}];
 
 class EditProfileForm extends PureComponent<EditProfileFormProps> {
   public static defaultProps = {
@@ -32,6 +40,14 @@ class EditProfileForm extends PureComponent<EditProfileFormProps> {
                 type="text"
                 component={Input}
                 label="Miasto"
+              />
+            </FieldWrapper>
+            <FieldWrapper item xs={6}>
+              <Field
+                name="gender"
+                component={Select}
+                options={genders}
+                label="Płeć"
               />
             </FieldWrapper>
             <FieldWrapper item xs={6}>

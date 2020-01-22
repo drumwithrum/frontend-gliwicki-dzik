@@ -8,11 +8,12 @@ export const Wrapper = styled('div')`
 `;
 
 export const Content = styled(Grid)`
-  padding: 32px 48px;
+  padding: 32px 48px 12px 48px;
 `;
 
 export const FieldWrapper = styled(Grid)`
   margin-bottom: 24px !important;
+  width: 160px;
   &:nth-child(even) {
     padding-left: 16px;
   };

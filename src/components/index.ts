@@ -6,3 +6,4 @@ export { default as AppBar } from './AppBar';
 export { default as View } from './View';
 export { default as Table } from './Table';
 export { default as PrivateRoute } from './PrivateRoute';
+export { default as Select } from './Select';

@@ -25,4 +25,11 @@ export const Layout = styled('div')`
 export const Content = styled('div')`
   z-index: 99;
   background-color: ${white};
+  padding: 24px;
+`;
+
+export const BottomWrapper = styled('div')`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
