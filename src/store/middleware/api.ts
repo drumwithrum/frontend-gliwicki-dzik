@@ -32,7 +32,7 @@ async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promi
   try {
     const isAuthenticated = Boolean(window.localStorage.getItem('gwdk-token'));
     if (!isAuthenticated) {
-      window.location.replace('/login');
+      // window.location.replace('/login');
     }
     const token = window.localStorage.getItem('gwdk-token') || null;
     const options = {
@@ -49,7 +49,7 @@ async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promi
     const { status } = error.response;
     if (status === 401 || status === 403) {
       window.localStorage.removeItem('gwdk-token');
-      window.location.replace('/login');
+      // window.location.replace('/login');
     }
 
     return Promise.reject(error);
@@ -75,6 +75,7 @@ export default () => (next: Dispatch) => async (action: AnyAction) => {
     next({ payload, type: requestType, apiAction: ApiActionResult.request });
 
     const response = await callApi(endpoint, data);
+    console.log('@N@L', response);
     return next({ response, payload, type: successType, apiAction: ApiActionResult.success });
 
   } catch (response) {

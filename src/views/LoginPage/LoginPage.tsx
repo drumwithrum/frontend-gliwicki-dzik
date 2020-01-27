@@ -1,11 +1,15 @@
 import React, { FC } from 'react';
 import LoginForm from './LoginForm';
 import { Wrapper, Layout, FormWrapper, Header, Content, Typography, Button } from './LoginPage.style';
+import { connect } from 'react-redux';
+import { submit } from 'redux-form';
 
 interface LoginPageProps {
+  submit: typeof submit;
 }
 
-const LoginPage: FC<LoginPageProps> = () => {
+const LoginPage: FC<LoginPageProps> = ({ submit }) => {
+  const handleClick = () => submit('login-form');
   return (
     <Wrapper>
       <Layout />
@@ -13,7 +17,7 @@ const LoginPage: FC<LoginPageProps> = () => {
         <FormWrapper>
           <Header>Zaloguj się.</Header>
           <LoginForm />
-          <Button>Zaloguj</Button>
+          <Button onClick={handleClick}>Zaloguj</Button>
           <Typography>
             Nie posiadasz jeszcze konta u nas? <span>Kliknij tutaj</span> żeby się zarejestrować!
           </Typography>
@@ -23,4 +27,11 @@ const LoginPage: FC<LoginPageProps> = () => {
   );
 };
 
-export default LoginPage;
+const mapStateToProps = (state: any) => ({
+});
+
+const mapDispatchToProps = {
+  submit,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

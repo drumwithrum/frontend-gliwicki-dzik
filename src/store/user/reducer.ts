@@ -1,5 +1,6 @@
 import { State } from 'types/store/UserStore';
 import { CallApiActionResponse } from 'store/middleware/api';
+import Auth from 'utils/auth';
 
 import types from './types';
 
@@ -16,12 +17,34 @@ export default (state = initialState, action: CallApiActionResponse) => {
     };
     case types.LOGIN_SUCCESS: {
       const { data } = action.response;
+      const { newToken } = data;
+      const tokenArray = newToken.split(' ');
+      Auth.saveToken(tokenArray[3]);
       return {
         ...state,
         username: data,
       };
     }
     case types.LOGIN_FAILURE: {
+      return {
+        ...state,
+        isFetching: false,
+      };
+    }
+
+    case types.REGISTER_REQUEST: return {
+      ...state,
+      isFetching: true,
+    };
+    case types.REGISTER_SUCCESS: {
+      const { data } = action.response;
+      const headers = action.response!.headers;
+      return {
+        ...state,
+        username: data,
+      };
+    }
+    case types.REGISTER_FAILURE: {
       return {
         ...state,
         isFetching: false,

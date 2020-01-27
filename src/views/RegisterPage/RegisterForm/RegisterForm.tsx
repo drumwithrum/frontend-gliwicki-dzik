@@ -1,25 +1,14 @@
 
 import { Wrapper, FieldWrapper } from './RegisterForm.style';
 import React, { PureComponent } from 'react';
-import Grid from '@material-ui/core/Grid';
-import { Input, Select } from 'components';
+import { Input, Select, DatePicker } from 'components';
 import { reduxForm, InjectedFormProps, Field, Form } from 'redux-form';
-
-// const NavItem: FC = (props: NavItemProps) => {
-//   return (
-//     <Wrapper>
-//       <Input name="login" label="Nazwa użytkownika" />
-//       <Input name="password" type="password" label="Hasło" />
-//       <Input name="email" type="email" label="E-mail" />
-//       <Input name="bicep" type="number" label="Obwód bicepsa (cm)" />
-//     </Wrapper>
-//   );
-// };
-
-// export default NavItem;
+import { registerUser } from 'store/user/actions';
+import { connect } from 'react-redux';
 
 interface RegisterFormProps extends InjectedFormProps {
   onSubmit?: () => void;
+  registerUser: typeof registerUser;
 }
 
 const genders = [{
@@ -30,7 +19,7 @@ const genders = [{
   value: 'female',
 }];
 
-class RegistgerForm extends PureComponent<RegisterFormProps> {
+class RegisterForm extends PureComponent<RegisterFormProps> {
   public static defaultProps = {
   };
 
@@ -41,7 +30,7 @@ class RegistgerForm extends PureComponent<RegisterFormProps> {
         <Form onSubmit={handleSubmit(this.onSubmit)} autoComplete="off">
           <FieldWrapper>
             <Field
-              name="login"
+              name="username"
               type="text"
               component={Input}
               label="Nazwa użytkownika"
@@ -49,10 +38,10 @@ class RegistgerForm extends PureComponent<RegisterFormProps> {
           </FieldWrapper>
           <FieldWrapper>
             <Field
-              name="country"
+              name="password"
               type="password"
               component={Input}
-              label="Miasto"
+              label="Hasło"
             />
           </FieldWrapper>
           <FieldWrapper>
@@ -73,6 +62,13 @@ class RegistgerForm extends PureComponent<RegisterFormProps> {
           </FieldWrapper>
           <FieldWrapper>
             <Field
+              name="dateOfBirth"
+              component={DatePicker}
+              label="Data urodzenia"
+            />
+          </FieldWrapper>
+          <FieldWrapper>
+            <Field
               name="bicepSize"
               type="number"
               component={Input}
@@ -85,9 +81,19 @@ class RegistgerForm extends PureComponent<RegisterFormProps> {
     );
   }
 
-  private onSubmit = (values: any) => {
+  private onSubmit = async (values: any) => {
+    const { registerUser } = this.props;
+    await registerUser(values);
     console.log(values);
   }
 }
 
-export default reduxForm({ form: 'register-form' })(RegistgerForm);
+const mapStateToProps = (state: any) => ({
+});
+
+const mapDispatchToProps = {
+  registerUser,
+};
+
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
+export default reduxForm({ form: 'register-form' })(connectedComponent);
