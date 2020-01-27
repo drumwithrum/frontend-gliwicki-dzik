@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { AnyAction, Dispatch } from 'redux';
+import Auth from 'utils/auth';
 import config from 'config';
 
 export const CALL_API = 'CALL_API';
@@ -30,11 +31,12 @@ const { API_URL } = config;
 
 async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promise<AxiosResponse> {
   try {
-    const isAuthenticated = Boolean(window.localStorage.getItem('gwdk-token'));
-    if (!isAuthenticated) {
-      // window.location.replace('/login');
+    const isAuthenticated = Auth.isAuthorized;
+    const isAuthorizing = endpoint.includes('login') || endpoint.includes('register');
+    if (!isAuthenticated && !isAuthorizing) {
+      window.location.replace('/login');
     }
-    const token = window.localStorage.getItem('gwdk-token') || null;
+    const token = Auth.token;
     const options = {
       ...settings,
       url: `${apiUrl}/${endpoint}`,
@@ -48,8 +50,8 @@ async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promi
   } catch (error) {
     const { status } = error.response;
     if (status === 401 || status === 403) {
-      window.localStorage.removeItem('gwdk-token');
-      // window.location.replace('/login');
+      Auth.removeToken();
+      window.location.replace('/login');
     }
 
     return Promise.reject(error);
@@ -75,7 +77,6 @@ export default () => (next: Dispatch) => async (action: AnyAction) => {
     next({ payload, type: requestType, apiAction: ApiActionResult.request });
 
     const response = await callApi(endpoint, data);
-    console.log('@N@L', response);
     return next({ response, payload, type: successType, apiAction: ApiActionResult.success });
 
   } catch (response) {
