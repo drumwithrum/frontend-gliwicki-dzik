@@ -5,5 +5,6 @@ export { default as AppBar } from './AppBar';
 export { default as View } from './View';
 export { default as Table } from './Table';
 export { default as PrivateRoute } from './PrivateRoute';
+export { default as UnauthorizedRoute } from './UnauthorizedRoute';
 export { default as Select } from './Select';
 export { default as DatePicker } from './DatePicker';

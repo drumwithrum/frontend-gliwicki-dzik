@@ -4,10 +4,15 @@ import React, { PureComponent } from 'react';
 import { Input, Select, DatePicker } from 'components';
 import { reduxForm, InjectedFormProps, Field, Form } from 'redux-form';
 import { registerUser } from 'store/user/actions';
+import { withRouter, RouteComponentProps } from 'react-router';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 
-interface RegisterFormProps extends InjectedFormProps {
+interface PassedProps {
   onSubmit?: () => void;
+}
+
+interface RegisterFormProps extends PassedProps, InjectedFormProps, RouteComponentProps {
   registerUser: typeof registerUser;
 }
 
@@ -82,9 +87,8 @@ class RegisterForm extends PureComponent<RegisterFormProps> {
   }
 
   private onSubmit = async (values: any) => {
-    const { registerUser } = this.props;
+    const { registerUser, history } = this.props;
     await registerUser(values);
-    console.log(values);
   }
 }
 
@@ -95,5 +99,8 @@ const mapDispatchToProps = {
   registerUser,
 };
 
-const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
-export default reduxForm({ form: 'register-form' })(connectedComponent);
+export default compose(
+  withRouter,
+  reduxForm({ form: 'register-form' }),
+  connect(mapStateToProps, mapDispatchToProps),
+)(RegisterForm) as (props: PassedProps) => JSX.Element;

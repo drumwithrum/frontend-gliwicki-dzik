@@ -1,12 +1,18 @@
 import { Wrapper, FieldWrapper } from './LoginForm.style';
 import React, { PureComponent } from 'react';
 import { Input } from 'components';
+import { compose } from 'redux';
 import { reduxForm, InjectedFormProps, Field, Form } from 'redux-form';
+import { withRouter, RouteComponentProps } from 'react-router';
+import { routing } from 'config';
 import { login } from 'store/user/actions';
 import { connect } from 'react-redux';
 
-interface LoginFormProps extends InjectedFormProps {
+interface PassedProps {
   onSubmit?: () => void;
+}
+
+interface LoginFormProps extends PassedProps, InjectedFormProps, RouteComponentProps {
   login: typeof login;
 }
 
@@ -41,9 +47,9 @@ class LoginForm extends PureComponent<LoginFormProps> {
   }
 
   private onSubmit = async ({ username, password }: any) => {
-    const { login } = this.props;
-    console.log(username, password)
+    const { login, history } = this.props;
     await login(username, password);
+    history.push(routing.HOME.url);
   }
 }
 
@@ -54,5 +60,8 @@ const mapDispatchToProps = {
   login,
 };
 
-const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(LoginForm);
-export default reduxForm({ form: 'login-form' })(connectedComponent);
+export default compose(
+  withRouter,
+  reduxForm({ form: 'login-form' }),
+  connect(mapStateToProps, mapDispatchToProps),
+)(LoginForm) as (props: PassedProps) => JSX.Element;
