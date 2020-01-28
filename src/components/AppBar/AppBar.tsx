@@ -3,6 +3,7 @@ import NavItem from './NavItem';
 import { routing } from 'config';
 import { withRouter, RouteComponentProps } from 'react-router';
 import UserMenu from './UserMenu';
+import Auth from 'utils/auth';
 import { Wrapper, LogoContainer, NavItemsContainer } from './AppBar.style';
 
 interface AppBarProps extends RouteComponentProps {
@@ -31,7 +32,7 @@ class AppBar extends Component<AppBarProps> {
               );
             })
           }
-          <UserMenu />
+          {Auth.isAuthorized && <UserMenu />}
         </NavItemsContainer>
       </Wrapper>
     );

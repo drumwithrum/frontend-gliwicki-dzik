@@ -5,6 +5,7 @@ import types from './types';
 export const login = (username: string, password: string) => ({
   [CALL_API]: {
     endpoint: api.AUTH.LOGIN,
+    method: 'POST',
     data: {
       username,
       password,
@@ -17,14 +18,11 @@ export const login = (username: string, password: string) => ({
   },
 });
 
-export const registerUser = (username: string, password: string) => ({
+export const registerUser = (data: any) => ({
   [CALL_API]: {
+    data,
     endpoint: api.AUTH.REGISTER,
     method: 'POST',
-    data: {
-      username,
-      password,
-    },
     types: [
       types.REGISTER_REQUEST,
       types.REGISTER_SUCCESS,

@@ -17,3 +17,7 @@ export const Input = styled(BaseInput)`
     margin-top: 16px;
   }
 `;
+
+export const FieldWrapper = styled('div')`
+  margin-top: 16px;
+`;

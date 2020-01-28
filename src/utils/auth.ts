@@ -1,6 +1,6 @@
 class Auth {
   public static get isAuthorized(): boolean {
-    return Boolean(window.localStorage.getItem('gwdk-token'));
+    return Boolean(this.token);
   }
 
   public static saveToken(token: string) {
@@ -9,6 +9,10 @@ class Auth {
 
   public static removeToken() {
     return Boolean(window.localStorage.removeItem('gwdk-token'));
+  }
+
+  public static get token(): string | null {
+    return window.localStorage.getItem('gwdk-token') || null;
   }
 }
 
