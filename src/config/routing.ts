@@ -1,3 +1,4 @@
+import Auth from 'utils/auth';
 
 class Routing {
   public static HOME = {
@@ -11,6 +12,7 @@ class Routing {
   public static WORKOUTS = {
     url: '/workouts',
     title: 'Treningi',
+    private: true,
   };
   public static RANKING = {
     url: '/ranking',
@@ -18,17 +20,22 @@ class Routing {
   };
   public static LOGIN = {
     url: '/login',
-    title: 'Login',
+    title: 'Zaloguj',
   };
   public static REGISTER = {
     url: '/register',
-    title: 'Register',
+    title: 'Zarejestruj',
   };
   public static PROFILE = {
     url: '/profile',
-    title: 'Profile',
+    title: 'Profil',
   };
-  public static get routes(): {url: string; title: string}[] {
+  public static MAIL = {
+    url: '/mail',
+    title: 'Skrzynka odbiorcza',
+    private: true,
+  };
+  public static get routes(): { url: string; title: string; private?: boolean }[] {
     return [
       this.HOME,
       this.EXCERCISES,
@@ -37,7 +44,10 @@ class Routing {
     ];
   }
   public static get routeTitles(): string[] {
-    return this.routes.map((item) => item.title);
+    const showPrivate = Auth.isAuthorized;
+    return this.routes
+      .filter((route) => !route.private || (showPrivate && route.private))
+      .map((item) => item.title);
   }
   public static getUrl = (title: string): string => {
     const route = Routing.routes
