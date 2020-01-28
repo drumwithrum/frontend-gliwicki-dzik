@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Wrapper, Layout, Content } from './MailPage.style';
+import MailBox from './MailBox';
 
 interface MailPageProps {
 }
@@ -13,7 +14,7 @@ class MailPage extends PureComponent<MailPageProps> {
       <Wrapper>
         <Layout />
         <Content>
-          wiadomosci
+          <MailBox />
         </Content>
       </Wrapper>
     );
