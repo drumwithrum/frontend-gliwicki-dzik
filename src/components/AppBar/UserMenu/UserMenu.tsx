@@ -45,7 +45,7 @@ const UserMenu: FC<UserMenuProps> = ({ history }) => {
 
   const onLogout = (e: React.MouseEvent) => {
     e.stopPropagation();
-    Auth.removeToken();
+    Auth.deauthorize();
     history.push(Routing.LOGIN.url);
   };
 

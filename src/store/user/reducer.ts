@@ -17,9 +17,9 @@ export default (state = initialState, action: CallApiActionResponse) => {
     };
     case types.LOGIN_SUCCESS: {
       const { data } = action.response;
-      const { newToken } = data;
-      const tokenArray = newToken.split(' ');
-      Auth.saveToken(tokenArray[3]);
+      const { newToken, userToUse } = data;
+      Auth.saveToken(newToken.token);
+      Auth.saveUserId(userToUse.userId);
       return {
         ...state,
         username: data,
