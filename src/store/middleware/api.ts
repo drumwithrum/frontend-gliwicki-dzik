@@ -50,7 +50,7 @@ async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promi
   } catch (error) {
     const { status } = error.response;
     if (status === 401 || status === 403) {
-      Auth.removeToken();
+      Auth.deauthorize();
       window.location.replace('/login');
     }
 

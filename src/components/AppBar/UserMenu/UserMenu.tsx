@@ -34,6 +34,10 @@ const UserMenu: FC<UserMenuProps> = ({ history }) => {
     history.push(Routing.PROFILE.url);
   };
 
+  const onMailClick = (e: React.MouseEvent) => {
+    history.push(Routing.MAIL.url);
+  };
+
   const toggleMenu = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
@@ -41,7 +45,7 @@ const UserMenu: FC<UserMenuProps> = ({ history }) => {
 
   const onLogout = (e: React.MouseEvent) => {
     e.stopPropagation();
-    Auth.removeToken();
+    Auth.deauthorize();
     history.push(Routing.LOGIN.url);
   };
 
@@ -56,6 +60,7 @@ const UserMenu: FC<UserMenuProps> = ({ history }) => {
         <ExpansionPanelSummary />
         <ExpansionPanelDetails>
           <MenuItem onClick={onProfileClick}>Mój profil</MenuItem>
+          <MenuItem onClick={onMailClick}>Wiadomości</MenuItem>
           <MenuItem onClick={onLogout}>Wyloguj</MenuItem>
         </ExpansionPanelDetails>
       </ExpansionPanel>

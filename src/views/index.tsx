@@ -13,6 +13,7 @@ import ExcercisesPage from './ExcercisesPage';
 import WorkoutsPage from './WorkoutsPage';
 import RankingPage from './RankingPage';
 import EditProfilePage from './EditProfilePage';
+import MailPage from './MailPage';
 
 const store = configureStore();
 
@@ -25,6 +26,7 @@ export const Router = (
     <PrivateRoute exact path={Routing.WORKOUTS.url} component={WorkoutsPage} />
     <Route exact path={Routing.RANKING.url} component={RankingPage} />
     <Route exact path={Routing.PROFILE.url} component={EditProfilePage} />
+    <Route exact path={Routing.MAIL.url} component={MailPage} />
     <Route path="*" render={() => <Redirect to="/home" />} />
   </Switch>
 );
