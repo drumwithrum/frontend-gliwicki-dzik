@@ -39,6 +39,7 @@ export const Title = styled('div')`
   text-align: center;
   align-items: center;
   color: ${main};
+  margin-bottom: 24px;
 ` as any;
 
 export const Button = styled(BaseButton)`

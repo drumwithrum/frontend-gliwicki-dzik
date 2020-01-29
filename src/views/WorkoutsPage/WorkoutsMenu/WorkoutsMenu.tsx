@@ -23,6 +23,29 @@ const columns = {
       '4',
     ],
   },
+  wednesday: {
+    title: 'Środa',
+    itemIds: [
+      '5',
+      '6',
+    ],
+  },
+  thursday: {
+    title: 'Czwartek',
+    itemIds: [],
+  },
+  friday: {
+    title: 'Piątek',
+    itemIds: [],
+  },
+  saturday: {
+    title: 'Sobota',
+    itemIds: [],
+  },
+  sunday: {
+    title: 'Niedziela',
+    itemIds: [],
+  },
 };
 
 const excercises = [{
@@ -56,10 +79,10 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
     return (
       <Wrapper flex="column" justify="center">
         <Title>
-          Nie utworzyłeś jeszcze żadnego treningu, kliknij w przycisk obok aby go utworzyć
+          Nie utworzyłeś jeszcze żadnego treningu, kliknij w przycisk aby go utworzyć
         </Title>
         <Button onClick={() => setAddingWorkout(true)}>
-          Dodaj trening
+          Zapisz
         </Button>
       </Wrapper>
     );
@@ -85,7 +108,7 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
           </ListWrapper>
         </Body>
         <Footer>
-          <Button>Zapisz</Button>
+          <Button onClick={() => setAddingWorkout(false)}>Zapisz</Button>
         </Footer>
       </Wrapper>
     );
@@ -93,14 +116,21 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
 
   return (
     <Wrapper flex="column">
-      <Title size={24}>
-        Twój plan treningowy!
-      </Title>
       <Body>
         <ListWrapper>
-          <ExcercisesList data={workouts} onClick={addExcerciseToTraining} searchPlaceholder="Wyszukaj trening" />
+          <ExcercisesList
+            onNewAdd={() => setAddingWorkout(true)}
+            data={workouts}
+            onClick={addExcerciseToTraining}
+            searchPlaceholder="Wyszukaj trening"
+          />
         </ListWrapper>
-        <Table columns={columns} />
+        <div>
+          <Title size={24}>
+            Twój plan treningowy!
+          </Title>
+          <Table columns={columns} />
+        </div>
       </Body>
     </Wrapper>
   );

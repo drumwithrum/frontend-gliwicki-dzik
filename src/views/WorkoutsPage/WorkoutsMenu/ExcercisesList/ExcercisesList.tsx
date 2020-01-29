@@ -3,7 +3,7 @@ import { List } from '@material-ui/core';
 import { Input } from 'components';
 import SearchIcon from '../../images/search.svg';
 import FrownIcon from '../../images/frown.svg';
-import { Wrapper, ListItem, EmptyListResult, Icon } from './ExcercisesList.style';
+import { Wrapper, ListItem, EmptyListResult, Icon, AddIcon } from './ExcercisesList.style';
 
 interface ExcercisesListProps {
   onClick?: (id: string) => void;
@@ -11,6 +11,7 @@ interface ExcercisesListProps {
   disableSearch?: boolean;
   searchPlaceholder?: string;
   isAddingTraining?: boolean;
+  onNewAdd?: () => void;
   data: {
     title: string;
     id: string;
@@ -23,6 +24,7 @@ const ExcercisesList: FC<ExcercisesListProps> = ({
   isAddingTraining = false,
   searchPlaceholder = '',
   data = [],
+  onNewAdd,
 }) => {
   const [searchBoxValue, setSearchBoxValue] = useState('');
   const onInputChange = (value: string) => setSearchBoxValue(value.trim().toLowerCase());
@@ -47,6 +49,14 @@ const ExcercisesList: FC<ExcercisesListProps> = ({
           />
         ) : null}
       <List>
+        {onNewAdd && (
+          <ListItem
+            button
+            onClick={onNewAdd}
+          >
+            <AddIcon>+</AddIcon>Dodaj trening
+          </ListItem>
+        )}
         {listItems.map((item) => {
           return (
             <ListItem

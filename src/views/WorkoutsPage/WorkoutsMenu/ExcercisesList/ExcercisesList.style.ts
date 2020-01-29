@@ -4,6 +4,22 @@ import { style } from 'config';
 
 const { palette: { white, grey, black, primary: { main } } } = style;
 
+export const AddIcon = styled('div')`
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  background-color: ${main};
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  color: ${white};
+  font-weight: bold;
+  box-sizing: border-box;
+  padding-bottom: 5px;
+`;
+
 export const Wrapper = styled('div')`
   height: 100%;
   width: 100%;
