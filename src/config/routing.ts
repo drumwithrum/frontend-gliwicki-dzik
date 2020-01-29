@@ -35,6 +35,11 @@ class Routing {
     title: 'Skrzynka odbiorcza',
     private: true,
   };
+  public static USERS = {
+    url: '/user/:id',
+    title: 'Dziki',
+    private: true,
+  };
   public static get routes(): { url: string; title: string; private?: boolean }[] {
     return [
       this.HOME,
