@@ -41,5 +41,5 @@ export const DatePickerBase = styled(TextField)`
 export const Label = styled.div<DatePickerProps>`
   font-family: Montserrat;
   font-size: 14px;
-  color: ${(p: any) => p.color || primary.main};
+  color: ${(p) => p.color || primary.main};
 `;

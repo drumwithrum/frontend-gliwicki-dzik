@@ -49,5 +49,5 @@ export const Icon = styled('img')`
 export const Label = styled.div<InputProps>`
   font-family: Montserrat;
   font-size: 14px;
-  color: ${(p: any) => p.color || primary.main};
+  color: ${(p) => p.color || primary.main};
 `;
