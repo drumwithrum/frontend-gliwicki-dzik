@@ -11,6 +11,7 @@ export const ButtonBase = styled('button')`
   position: relative;
   text-transform: uppercase;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 const ripple = keyframes`

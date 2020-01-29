@@ -53,6 +53,8 @@ export const Typography = styled('div')`
   & span {
     cursor: pointer;
     font-weight: bold;
+    margin-left: 4px;
+    margin-right: 4px;
   }
 `;
 

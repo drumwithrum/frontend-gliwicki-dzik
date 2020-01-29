@@ -4,7 +4,7 @@ import { Wrapper } from './NavItem.style';
 interface NavItemProps {
   active: boolean;
   title: string;
-  onClick: () => void;
+  onClick: (e: any) => any;
 }
 
 const NavItem: FC<NavItemProps> = ({ active = false, title = '', onClick }) => {

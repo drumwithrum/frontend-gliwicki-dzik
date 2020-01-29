@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { AnyAction, Dispatch } from 'redux';
+import Auth from 'utils/auth';
 import config from 'config';
 
 export const CALL_API = 'CALL_API';
@@ -30,11 +31,12 @@ const { API_URL } = config;
 
 async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promise<AxiosResponse> {
   try {
-    const isAuthenticated = Boolean(window.localStorage.getItem('gwdk-token'));
-    if (isAuthenticated) {
+    const isAuthenticated = Auth.isAuthorized;
+    const isAuthorizing = endpoint.includes('login') || endpoint.includes('register');
+    if (!isAuthenticated && !isAuthorizing) {
       window.location.replace('/login');
     }
-    const token = window.localStorage.getItem('gwdk-token') || null;
+    const token = Auth.token;
     const options = {
       ...settings,
       url: `${apiUrl}/${endpoint}`,
@@ -48,7 +50,7 @@ async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promi
   } catch (error) {
     const { status } = error.response;
     if (status === 401 || status === 403) {
-      window.localStorage.removeItem('gwdk-token');
+      Auth.deauthorize();
       window.location.replace('/login');
     }
 

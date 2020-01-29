@@ -9,7 +9,7 @@ interface CellProps {
 }
 
 class Cell extends Component<CellProps> {
-  private defaultProps = {
+  public static defaultProps = {
     items: [],
   };
 
