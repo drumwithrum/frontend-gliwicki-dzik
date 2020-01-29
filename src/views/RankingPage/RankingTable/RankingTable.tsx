@@ -1,6 +1,8 @@
-import React, { FC } from 'react';
+import React, {FC, useEffect, useReducer} from 'react';
 import {Wrapper, Title, Body} from './RankingTable.style';
 import StaticTable from 'components/StaticTable';
+
+import {getUsers} from '../../../store/users/actions';
 
 const headers: string[] = [
   'No',
@@ -34,6 +36,9 @@ interface RankingTable {
 }
 
 const RankingTable: FC<RankingTable> = (props: RankingTable) => {
+  useEffect(() => {
+    getUsers();
+  }, []);
   return (
     <Wrapper>
       <Title>
