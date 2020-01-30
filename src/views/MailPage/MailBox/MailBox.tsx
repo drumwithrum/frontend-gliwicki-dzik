@@ -19,7 +19,7 @@ interface MailBoxProps {
   }[];
 }
 
-const data = [{
+const users = [{
   id: '1',
   name: 'test2',
 }];
@@ -27,6 +27,16 @@ const data = [{
 const MailBox: FC<MailBoxProps> = ({ fetchThread, addMessage, messages = [] }) => {
   const [userId, setUserId] = useState<string>('');
   const [message, setMessage] = useState<string>('');
+  const [initialized, setInitialized] = useState<boolean>(false);
+  const initialize = () => {
+    const id = users[0].id;
+    setUserId(id);
+    fetchThread(id);
+    setInitialized(true);
+  };
+  if (users.length > 0 && !initialized) {
+    initialize();
+  }
   const handleAuthorClick = (id: string) => {
     if (userId !== id) {
       setMessage('');
@@ -48,7 +58,7 @@ const MailBox: FC<MailBoxProps> = ({ fetchThread, addMessage, messages = [] }) =
   return (
     <Wrapper>
       <ListWrapper>
-        <AuthorList onClick={handleAuthorClick} activeUserId={userId} data={data} />
+        <AuthorList onClick={handleAuthorClick} activeUserId={userId} data={users} />
       </ListWrapper>
       <RightSegment>
         <MessagesWrapper>
