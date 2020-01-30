@@ -38,7 +38,12 @@ class Routing {
   public static USERS = {
     url: '/users',
     title: 'Dziki',
-    private: false,
+    private: true,
+  };
+  public static SINGLE_USER = {
+    url: '/users/user/:id',
+    title: 'Dzik',
+    private: true,
   };
   public static get routes(): { url: string; title: string; private?: boolean }[] {
     return [
