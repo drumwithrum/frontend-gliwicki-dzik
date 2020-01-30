@@ -40,9 +40,9 @@ const MailBox: FC<MailBoxProps> = ({ fetchThread, addMessage, messages = [] }) =
   const handleAuthorClick = (id: string) => {
     if (userId !== id) {
       setMessage('');
+      setUserId(id);
+      fetchThread(id);
     }
-    setUserId(id);
-    fetchThread(id);
   };
   const sendMessage = async () => {
     const data: Message = {
