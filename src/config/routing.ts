@@ -36,9 +36,9 @@ class Routing {
     private: true,
   };
   public static USERS = {
-    url: '/user/:id',
+    url: '/users',
     title: 'Dziki',
-    private: true,
+    private: false,
   };
   public static get routes(): { url: string; title: string; private?: boolean }[] {
     return [
@@ -46,6 +46,7 @@ class Routing {
       this.EXCERCISES,
       this.WORKOUTS,
       this.RANKING,
+      this.USERS,
     ];
   }
   public static get routeTitles(): string[] {

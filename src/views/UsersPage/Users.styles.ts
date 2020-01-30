@@ -1,6 +1,14 @@
 import styled from 'styled-components';
+import {View} from 'components';
+import backgroundSrc from '../RankingPage/images/gym.jpg';
+import {style} from 'config/index';
 
-import backgroundSrc from 'views/RankingPage/images/gym.jpg';
+const { palette: { white, grey, black, primary: { main } } } = style;
+
+export const Wrapper = styled(View)`
+  background-color: black;
+  overflow: hidden;
+`;
 
 export const Layout = styled('div')`
   position: absolute;
@@ -12,4 +20,14 @@ export const Layout = styled('div')`
   background-image: url('${backgroundSrc}');
   background-size: cover;
   filter: blur(4px);
+`;
+
+export const Content = styled('div')`
+  z-index: 99;
+  min-width: 500px;
+  min-height: 500px;
+`;
+
+export const Title = styled('h1')`
+
 `;
