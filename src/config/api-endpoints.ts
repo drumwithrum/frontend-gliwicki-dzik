@@ -12,13 +12,14 @@ class MessagesEndpoints {
   public static GET_THREAD = (recipientId: string | number) => `${MessagesEndpoints.BASE}/GetMessageThread/${recipientId}`;
 }
 
-class UsersEndpoint {
+class UsersEndpoints {
   public static BASE = `${Auth.userId}/user`;
-  public static GET_USERS = `${UsersEndpoint.BASE}/GetUsers`;
+  public static GET_USERS = `${UsersEndpoints.BASE}/GetUsers`;
+  public static GET_CONTACTED_USERS = `${UsersEndpoints.BASE}/GetConvUsers`;
 }
 
 export default {
   AUTH: AuthEndpoints,
   MESSAGES: MessagesEndpoints,
-  USERS: UsersEndpoint,
+  USERS: UsersEndpoints,
 };

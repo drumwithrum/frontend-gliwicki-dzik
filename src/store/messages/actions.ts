@@ -28,6 +28,17 @@ export const addMessage = (message: Message) => ({
   },
 });
 
+export const fetchContactedUsers = () => ({
+  [CALL_API]: {
+    endpoint: api.USERS.GET_CONTACTED_USERS,
+    types: [
+      types.SEND_MESSAGE_REQUEST,
+      types.SEND_MESSAGE_SUCCESS,
+      types.SEND_MESSAGE_FAILURE,
+    ],
+  },
+});
+
 // export const fetchAllThreads = () => ({
 //   [CALL_API]: {
 //     endpoint: api.MESSAGES.GET_THREAD(Auth.userId!),

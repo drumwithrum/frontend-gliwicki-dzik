@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
-import { Wrapper, ListWrapper, MessagesWrapper, RightSegment, MessageBoxWrapper } from './MailBox.style';
+import { Wrapper, ListWrapper, MessagesWrapper, RightSegment } from './MailBox.style';
 import State from 'types/store';
 import { connect } from 'react-redux';
 import { fetchThread, addMessage } from 'store/messages/actions';
-import { getMessages } from 'store/messages/selectors';
+import { getMessages, getContactedUsers } from 'store/messages/selectors';
 import { Message } from 'types/Api/messages';
 import Auth from 'utils/auth';
 import AuthorList from './AuthorList';
@@ -13,6 +13,10 @@ import MessageBox from './MessageBox';
 interface MailBoxProps {
   fetchThread: typeof fetchThread;
   addMessage: typeof addMessage;
+  contactedUsers: {
+    id: string;
+    name: string;
+  }[];
   messages: {
     text: string;
     sent: boolean;
@@ -24,7 +28,13 @@ const users = [{
   name: 'test2',
 }];
 
-const MailBox: FC<MailBoxProps> = ({ fetchThread, addMessage, messages = [] }) => {
+const MailBox: FC<MailBoxProps> = ({
+  fetchThread,
+  addMessage,
+  contactedUsers = [],
+  messages = [],
+}) => {
+  console.log(contactedUsers);
   const [userId, setUserId] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [initialized, setInitialized] = useState<boolean>(false);
@@ -72,6 +82,7 @@ const MailBox: FC<MailBoxProps> = ({ fetchThread, addMessage, messages = [] }) =
 
 const mapStateToProps = (state: State) => ({
   messages: getMessages(state),
+  contactedUsers: getContactedUsers(state),
 });
 
 const mapDispatchToProps = {

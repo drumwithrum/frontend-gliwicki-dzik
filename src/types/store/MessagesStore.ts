@@ -4,6 +4,7 @@ export interface State {
   isFetching: boolean;
   threads: [];
   currentThread: ThreadMessage[];
+  contactedUsers: any[];
 }
 
 export default interface Store {

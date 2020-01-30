@@ -15,3 +15,8 @@ export const getMessages = (state: Store) => state.messages.currentThread
       text: item.content,
     };
   });
+
+export const getContactedUsers = (state: Store) => state.messages.contactedUsers
+  .sort((a, b) => {
+    return new Date(b.dateOfSent).getTime() - new Date(a.dateOfSent).getTime();
+  });

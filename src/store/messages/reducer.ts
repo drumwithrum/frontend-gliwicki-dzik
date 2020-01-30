@@ -8,6 +8,7 @@ const initialState: State = {
   threads: [],
   isFetching: false,
   currentThread: [],
+  contactedUsers: [],
 };
 
 export default (state = initialState, action: CallApiActionResponse) => {
@@ -40,6 +41,24 @@ export default (state = initialState, action: CallApiActionResponse) => {
       };
     }
     case types.FETCH_THREAD_FAILURE: {
+      return {
+        ...state,
+        isFetching: false,
+      };
+    }
+
+    case types.FETCH_CONTACTED_USERS_REQUEST: return {
+      ...state,
+      isFetching: true,
+    };
+    case types.FETCH_CONTACTED_USERS_SUCCESS: {
+      const { data } = action.response;
+      return {
+        ...state,
+        contactedUsers: data,
+      };
+    }
+    case types.FETCH_CONTACTED_USERS_FAILURE: {
       return {
         ...state,
         isFetching: false,
