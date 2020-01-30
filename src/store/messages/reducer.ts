@@ -7,22 +7,39 @@ import types from './types';
 const initialState: State = {
   threads: [],
   isFetching: false,
+  currentThread: [],
 };
 
 export default (state = initialState, action: CallApiActionResponse) => {
   switch (action.type) {
-    case types.FETCH_ALL_THREADS_REQUEST: return {
+    case types.SEND_MESSAGE_REQUEST: return {
       ...state,
       isFetching: true,
     };
-    case types.FETCH_ALL_THREADS_SUCCESS: {
-      const { data } = action.response;
-      console.log(data);
+    case types.SEND_MESSAGE_SUCCESS: {
       return {
         ...state,
       };
     }
-    case types.FETCH_ALL_THREADS_FAILURE: {
+    case types.SEND_MESSAGE_FAILURE: {
+      return {
+        ...state,
+        isFetching: false,
+      };
+    }
+
+    case types.FETCH_THREAD_REQUEST: return {
+      ...state,
+      isFetching: true,
+    };
+    case types.FETCH_THREAD_SUCCESS: {
+      const { data } = action.response;
+      return {
+        ...state,
+        currentThread: data,
+      };
+    }
+    case types.FETCH_THREAD_FAILURE: {
       return {
         ...state,
         isFetching: false,
