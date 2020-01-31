@@ -1,53 +1,98 @@
-import React, { FC, useState } from 'react';
-import { Wrapper, ListWrapper, MessagesWrapper, RightSegment, MessageBoxWrapper } from './MailBox.style';
+import React, { FC, useState, useEffect } from 'react';
+import { Wrapper, ListWrapper, MessagesWrapper, RightSegment } from './MailBox.style';
+import State from 'types/store';
+import { connect } from 'react-redux';
+import { fetchThread, addMessage, fetchContactedUsers } from 'store/messages/actions';
+import { getMessages, getContactedUsers } from 'store/messages/selectors';
+import { Message } from 'types/Api/messages';
+import Auth from 'utils/auth';
 import AuthorList from './AuthorList';
 import MessagesList from './MessagesList';
 import MessageBox from './MessageBox';
 
 interface MailBoxProps {
+  fetchThread: typeof fetchThread;
+  addMessage: typeof addMessage;
+  fetchContactedUsers: typeof fetchContactedUsers;
+  contactedUsers: {
+    id: string | number;
+    name: string;
+  }[];
+  messages: {
+    text: string;
+    sent: boolean;
+  }[];
 }
 
-const data = [{
-  id: '123',
-  name: 'Arnold',
-}, {
-  id: '88',
-  name: 'Bochcio88',
-}, {
-  id: '71zrobsalut',
-  name: 'benek',
+const users = [{
+  id: '1',
+  name: 'test2',
 }];
 
-const messages = [{
-  text: 'Eluwina',
-  sent: false,
-}, {
-  text: 'no siema byku',
-  sent: true,
-}];
-
-const MailBox: FC = (props: MailBoxProps) => {
+const MailBox: FC<MailBoxProps> = ({
+  fetchThread,
+  addMessage,
+  fetchContactedUsers,
+  contactedUsers = [],
+  messages = [],
+}) => {
+  useEffect(() => {
+    fetchContactedUsers();
+  }, []);
   const [userId, setUserId] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const handleAuthorClick = (id: string) => {
+  const [initialized, setInitialized] = useState<boolean>(false);
+  const initialize = () => {
+    const id = `${contactedUsers[0].id}`;
+    setUserId(id);
+    fetchThread(id);
+    setInitialized(true);
+  };
+  if (contactedUsers.length > 0 && !initialized) {
+    initialize();
+  }
+  const handleAuthorClick = (id: string | number) => {
     if (userId !== id) {
       setMessage('');
+      setUserId(`${id}`);
+      fetchThread(`${id}`);
     }
-    setUserId(id);
   };
+  const sendMessage = async () => {
+    const data: Message = {
+      senderId: Auth.userId!,
+      recipientId: userId,
+      content: message,
+    };
+    await addMessage(data);
+    await fetchThread(userId);
+    setMessage('');
+  };
+
   return (
     <Wrapper>
       <ListWrapper>
-        <AuthorList onClick={handleAuthorClick} activeUserId={userId} data={data} />
+        <AuthorList onClick={handleAuthorClick} activeUserId={userId} data={contactedUsers} />
       </ListWrapper>
       <RightSegment>
         <MessagesWrapper>
           <MessagesList messages={messages} />
         </MessagesWrapper>
-        <MessageBox />
+        <MessageBox onSubmit={sendMessage} onChange={setMessage} value={message} />
       </RightSegment>
     </Wrapper>
   );
 };
 
-export default MailBox;
+const mapStateToProps = (state: State) => ({
+  messages: getMessages(state),
+  contactedUsers: getContactedUsers(state),
+});
+
+const mapDispatchToProps = {
+  fetchThread,
+  addMessage,
+  fetchContactedUsers,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MailBox);
