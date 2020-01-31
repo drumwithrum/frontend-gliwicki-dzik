@@ -6,10 +6,10 @@ import FrownIcon from '../../images/frown.svg';
 import { Wrapper, ListItem, EmptyListResult, Icon } from './AuthorList.style';
 
 interface AuthorListProps {
-  onClick: (id: string) => void;
+  onClick: (id: string | number) => void;
   activeUserId?: string;
   data?: {
-    id: string;
+    id: string | number;
     name: string;
   }[];
 }
@@ -39,7 +39,7 @@ const AuthorList: FC<AuthorListProps> = ({
               key={item.id}
               button
               onClick={() => onClick(item.id)}
-              isActive={item.id === activeUserId}
+              isActive={`${item.id}` === `${activeUserId}`}
             >
               {item.name}
             </ListItem>

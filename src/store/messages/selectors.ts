@@ -17,6 +17,4 @@ export const getMessages = (state: Store) => state.messages.currentThread
   });
 
 export const getContactedUsers = (state: Store) => state.messages.contactedUsers
-  .sort((a, b) => {
-    return new Date(b.dateOfSent).getTime() - new Date(a.dateOfSent).getTime();
-  });
+  .map((item) => ({ id: item.userId, name: item.username }));

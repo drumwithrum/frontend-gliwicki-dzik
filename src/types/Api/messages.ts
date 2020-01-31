@@ -7,3 +7,8 @@ export interface Message {
 export interface ThreadMessage extends Message {
   dateOfSent: string;
 }
+
+export interface ContactedUser {
+  userId: number | string;
+  username: string;
+}

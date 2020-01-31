@@ -7,8 +7,9 @@ class AuthEndpoints {
 }
 
 class MessagesEndpoints {
-  public static BASE = `${Auth.userId}/content`;
+  public static BASE = `${Auth.userId}/message`;
   public static ADD_MESSAGE = `${MessagesEndpoints.BASE}/AddMessage`;
+  public static GET_CONTACTED_USERS = `${MessagesEndpoints.BASE}/GetConvMessages`;
   public static GET_THREAD = (recipientId: string | number) => `${MessagesEndpoints.BASE}/GetMessageThread/${recipientId}`;
 }
 

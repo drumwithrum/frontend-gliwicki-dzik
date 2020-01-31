@@ -1,8 +1,8 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Wrapper, ListWrapper, MessagesWrapper, RightSegment } from './MailBox.style';
 import State from 'types/store';
 import { connect } from 'react-redux';
-import { fetchThread, addMessage } from 'store/messages/actions';
+import { fetchThread, addMessage, fetchContactedUsers } from 'store/messages/actions';
 import { getMessages, getContactedUsers } from 'store/messages/selectors';
 import { Message } from 'types/Api/messages';
 import Auth from 'utils/auth';
@@ -13,8 +13,9 @@ import MessageBox from './MessageBox';
 interface MailBoxProps {
   fetchThread: typeof fetchThread;
   addMessage: typeof addMessage;
+  fetchContactedUsers: typeof fetchContactedUsers;
   contactedUsers: {
-    id: string;
+    id: string | number;
     name: string;
   }[];
   messages: {
@@ -31,27 +32,30 @@ const users = [{
 const MailBox: FC<MailBoxProps> = ({
   fetchThread,
   addMessage,
+  fetchContactedUsers,
   contactedUsers = [],
   messages = [],
 }) => {
-  console.log(contactedUsers);
+  useEffect(() => {
+    fetchContactedUsers();
+  }, []);
   const [userId, setUserId] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [initialized, setInitialized] = useState<boolean>(false);
   const initialize = () => {
-    const id = users[0].id;
+    const id = `${contactedUsers[0].id}`;
     setUserId(id);
     fetchThread(id);
     setInitialized(true);
   };
-  if (users.length > 0 && !initialized) {
+  if (contactedUsers.length > 0 && !initialized) {
     initialize();
   }
-  const handleAuthorClick = (id: string) => {
+  const handleAuthorClick = (id: string | number) => {
     if (userId !== id) {
       setMessage('');
-      setUserId(id);
-      fetchThread(id);
+      setUserId(`${id}`);
+      fetchThread(`${id}`);
     }
   };
   const sendMessage = async () => {
@@ -68,7 +72,7 @@ const MailBox: FC<MailBoxProps> = ({
   return (
     <Wrapper>
       <ListWrapper>
-        <AuthorList onClick={handleAuthorClick} activeUserId={userId} data={users} />
+        <AuthorList onClick={handleAuthorClick} activeUserId={userId} data={contactedUsers} />
       </ListWrapper>
       <RightSegment>
         <MessagesWrapper>
@@ -88,6 +92,7 @@ const mapStateToProps = (state: State) => ({
 const mapDispatchToProps = {
   fetchThread,
   addMessage,
+  fetchContactedUsers,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MailBox);

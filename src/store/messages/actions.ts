@@ -30,11 +30,11 @@ export const addMessage = (message: Message) => ({
 
 export const fetchContactedUsers = () => ({
   [CALL_API]: {
-    endpoint: api.USERS.GET_CONTACTED_USERS,
+    endpoint: api.MESSAGES.GET_CONTACTED_USERS,
     types: [
-      types.SEND_MESSAGE_REQUEST,
-      types.SEND_MESSAGE_SUCCESS,
-      types.SEND_MESSAGE_FAILURE,
+      types.FETCH_CONTACTED_USERS_REQUEST,
+      types.FETCH_CONTACTED_USERS_SUCCESS,
+      types.FETCH_CONTACTED_USERS_FAILURE,
     ],
   },
 });

@@ -1,10 +1,10 @@
-import { ThreadMessage } from 'types/Api/messages';
+import { ThreadMessage, ContactedUser } from 'types/Api/messages';
 
 export interface State {
   isFetching: boolean;
   threads: [];
   currentThread: ThreadMessage[];
-  contactedUsers: any[];
+  contactedUsers: ContactedUser[];
 }
 
 export default interface Store {
