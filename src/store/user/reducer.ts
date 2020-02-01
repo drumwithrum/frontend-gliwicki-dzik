@@ -9,6 +9,7 @@ const initialState: State = {
   isFetching: false,
   loginFailure: false,
   registerFailure: false,
+  currentUser: null,
 };
 
 export default (state = initialState, action: CallApiActionResponse) => {
@@ -62,9 +63,9 @@ export default (state = initialState, action: CallApiActionResponse) => {
     };
     case types.FETCH_CURRENT_USER_SUCCESS: {
       const { data } = action.response;
-      console.log(data);
       return {
         ...state,
+        currentUser: data,
       };
     }
     case types.FETCH_CURRENT_USER_FAILURE: {

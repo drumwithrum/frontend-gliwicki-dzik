@@ -59,7 +59,7 @@ const UserMenu: FC<UserMenuProps> = ({ history }) => {
       <ExpansionPanel expanded={isOpen}>
         <ExpansionPanelSummary />
         <ExpansionPanelDetails>
-          <MenuItem onClick={onProfileClick}>Mój profil</MenuItem>
+          <MenuItem onClick={onProfileClick}>Edytuj profil</MenuItem>
           <MenuItem onClick={onMailClick}>Wiadomości</MenuItem>
           <MenuItem onClick={onLogout}>Wyloguj</MenuItem>
         </ExpansionPanelDetails>
