@@ -1,8 +1,8 @@
-import { ThreadMessage, ContactedUser } from 'types/Api/excercises';
+import { Excercise } from 'types/Api/excercises';
 
 export interface State {
   isFetching: boolean;
-  excercises: any[];
+  excercises: Excercise[];
 }
 
 export default interface Store {

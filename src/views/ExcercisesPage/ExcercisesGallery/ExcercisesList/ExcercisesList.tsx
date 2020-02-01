@@ -8,22 +8,16 @@ import { Wrapper, ListItem, EmptyListResult, Icon } from './ExcercisesList.style
 interface ExcercisesListProps {
   onClick: (id: string) => void;
   activeVideoId?: string;
+  data: {
+    title: string;
+    url: string;
+  }[];
 }
-
-const data = [{
-  title: 'Wyciskanie sztangi na ławce płaskiej',
-  url: 'https://www.youtube.com/watch?v=bbJzacwZw9g',
-}, {
-  title: 'Wyciskanie żołnierskie',
-  url: 'https://www.youtube.com/watch?v=x-imhzh_mMU',
-}, {
-  title: 'Wyciskanie skośne',
-  url: 'https://www.youtube.com/watch?v=iENj-VzObSc',
-}];
 
 const ExcercisesList: FC<ExcercisesListProps> = ({
   onClick,
   activeVideoId,
+  data,
 }) => {
   useEffect(() => {
     if (data.length > 0) {

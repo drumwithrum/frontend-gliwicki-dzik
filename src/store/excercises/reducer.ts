@@ -1,6 +1,5 @@
 import { State } from 'types/store/ExcercisesStore';
 import { CallApiActionResponse } from 'store/middleware/api';
-import Auth from 'utils/auth';
 
 import types from './types';
 
@@ -16,10 +15,10 @@ export default (state = initialState, action: CallApiActionResponse) => {
       isFetching: true,
     };
     case types.FETCH_ALL_EXCERCISES_SUCCESS: {
-      const { data } = action.response;
-      console.log(data);
+      const { data: excercises, } = action.response;
       return {
         ...state,
+        excercises,
       };
     }
     case types.FETCH_ALL_EXCERCISES_FAILURE: {
