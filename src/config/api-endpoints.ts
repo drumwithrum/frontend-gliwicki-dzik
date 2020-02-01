@@ -15,6 +15,7 @@ class MessagesEndpoints {
 
 class UsersEndpoints {
   public static BASE = `${Auth.userId}/user`;
+  public static CURRENT_USER = `${UsersEndpoints.BASE}/me`;
   public static GET_USERS = `${UsersEndpoints.BASE}/GetUsers`;
   public static GET_CONTACTED_USERS = `${UsersEndpoints.BASE}/GetConvUsers`;
 }

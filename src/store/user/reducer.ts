@@ -56,6 +56,24 @@ export default (state = initialState, action: CallApiActionResponse) => {
       };
     }
 
+    case types.FETCH_CURRENT_USER_REQUEST: return {
+      ...state,
+      isFetching: true,
+    };
+    case types.FETCH_CURRENT_USER_SUCCESS: {
+      const { data } = action.response;
+      console.log(data);
+      return {
+        ...state,
+      };
+    }
+    case types.FETCH_CURRENT_USER_FAILURE: {
+      return {
+        ...state,
+        isFetching: false,
+      };
+    }
+
     default: return state;
   }
 };
