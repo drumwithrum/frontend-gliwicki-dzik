@@ -1,17 +1,19 @@
 import React, { FC } from 'react';
 import LoginForm from './LoginForm';
-import { Wrapper, Layout, FormWrapper, Header, Content, Typography, Button } from './LoginPage.style';
+import { Wrapper, Layout, FormWrapper, Header, Content, Typography, Button, ErrorMessage } from './LoginPage.style';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { compose } from 'redux';
 import { routing } from 'config';
+import { isLoginFailure } from 'store/user/selectors';
 import { connect } from 'react-redux';
 import { submit } from 'redux-form';
 
 interface LoginPageProps extends RouteComponentProps {
   submit: typeof submit;
+  isLoginFailure: boolean;
 }
 
-const LoginPage: FC<LoginPageProps> = ({ submit, history }) => {
+const LoginPage: FC<LoginPageProps> = ({ submit, history, isLoginFailure }) => {
   const handleClick = () => submit('login-form');
   const onRedirect = () => history.push(routing.REGISTER.url);
   return (
@@ -21,6 +23,11 @@ const LoginPage: FC<LoginPageProps> = ({ submit, history }) => {
         <FormWrapper>
           <Header>Zaloguj się.</Header>
           <LoginForm />
+          {isLoginFailure && (
+            <ErrorMessage>
+              Logowanie nie powiodło się!
+            </ErrorMessage>
+          )}
           <Button onClick={handleClick}>Zaloguj</Button>
           <Typography>
             Nie posiadasz jeszcze konta u nas?
@@ -34,6 +41,7 @@ const LoginPage: FC<LoginPageProps> = ({ submit, history }) => {
 };
 
 const mapStateToProps = (state: any) => ({
+  isLoginFailure: isLoginFailure(state),
 });
 
 const mapDispatchToProps = {

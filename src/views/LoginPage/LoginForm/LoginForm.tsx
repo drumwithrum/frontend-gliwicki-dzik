@@ -5,6 +5,7 @@ import { compose } from 'redux';
 import { reduxForm, InjectedFormProps, Field, Form } from 'redux-form';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { routing } from 'config';
+import { isLoginFailure } from 'store/user/selectors';
 import { login } from 'store/user/actions';
 import { connect } from 'react-redux';
 
@@ -14,6 +15,7 @@ interface PassedProps {
 
 interface LoginFormProps extends PassedProps, InjectedFormProps, RouteComponentProps {
   login: typeof login;
+  isLoginFailure: boolean;
 }
 
 class LoginForm extends PureComponent<LoginFormProps> {
@@ -49,11 +51,15 @@ class LoginForm extends PureComponent<LoginFormProps> {
   private onSubmit = async ({ username, password }: any) => {
     const { login, history } = this.props;
     await login(username, password);
-    history.push(routing.HOME.url);
+    const { isLoginFailure } = this.props;
+    if (!isLoginFailure) {
+      history.push(routing.HOME.url);
+    }
   }
 }
 
 const mapStateToProps = (state: any) => ({
+  isLoginFailure: isLoginFailure(state),
 });
 
 const mapDispatchToProps = {
