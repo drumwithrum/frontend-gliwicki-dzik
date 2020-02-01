@@ -30,9 +30,9 @@ export enum ApiActionResult {
 const { API_URL } = config;
 
 async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promise<AxiosResponse> {
+  const isAuthorizing = endpoint.includes('login') || endpoint.includes('register');
   try {
     const isAuthenticated = Auth.isAuthorized;
-    const isAuthorizing = endpoint.includes('login') || endpoint.includes('register');
     const { public: isPublic, ...requestSettings } = settings;
     if (!isAuthenticated && !isAuthorizing && !isPublic) {
       window.location.replace('/login');
@@ -51,7 +51,7 @@ async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promi
   } catch (error) {
     const { public: isPublic } = settings;
     const { status } = error.response;
-    if ((status === 401 || status === 403) && !isPublic) {
+    if ((status === 401 || status === 403) && !isAuthorizing && !isPublic) {
       Auth.deauthorize();
       window.location.replace('/login');
     }

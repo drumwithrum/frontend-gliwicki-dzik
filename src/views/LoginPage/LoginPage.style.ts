@@ -3,7 +3,7 @@ import backgroundSrc from './images/bg.jpg';
 import { View, Button as BaseButton } from 'components';
 import { style } from 'config';
 
-const { palette: { white, grey, primary } } = style;
+const { palette: { white, grey, primary: { light, main } } } = style;
 
 export const Wrapper = styled(View)`
   background-color: black;
@@ -34,7 +34,7 @@ export const FormWrapper = styled('div')`
 `;
 
 export const Header = styled('div')`
-  color: ${primary.main};
+  color: ${main};
   font-size: 24px;
   align-self: flex-start;
   margin-bottom: 32px;
@@ -61,4 +61,11 @@ export const Button = styled(BaseButton)`
   margin-top: 32px;
   width: 100%;
   margin-bottom: 16px;
+`;
+
+export const ErrorMessage = styled('div')`
+  font-family: Montserrat;
+  font-size: 14px;
+  color: ${light};
+  margin-top: 12px;
 `;

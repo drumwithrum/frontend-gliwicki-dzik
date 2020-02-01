@@ -5,7 +5,9 @@ import { Input, Select, DatePicker } from 'components';
 import { reduxForm, InjectedFormProps, Field, Form } from 'redux-form';
 import { registerUser } from 'store/user/actions';
 import { withRouter, RouteComponentProps } from 'react-router';
+import { routing } from 'config';
 import { connect } from 'react-redux';
+import { isRegisterFailure } from 'store/user/selectors';
 import { compose } from 'redux';
 
 interface PassedProps {
@@ -14,6 +16,7 @@ interface PassedProps {
 
 interface RegisterFormProps extends PassedProps, InjectedFormProps, RouteComponentProps {
   registerUser: typeof registerUser;
+  isRegisterFailure: boolean;
 }
 
 const genders = [{
@@ -89,10 +92,15 @@ class RegisterForm extends PureComponent<RegisterFormProps> {
   private onSubmit = async (values: any) => {
     const { registerUser, history } = this.props;
     await registerUser(values);
+    const { isRegisterFailure } = this.props;
+    if (!isRegisterFailure) {
+      history.push(routing.LOGIN.url);
+    }
   }
 }
 
 const mapStateToProps = (state: any) => ({
+  isRegisterFailure: isRegisterFailure(state),
 });
 
 const mapDispatchToProps = {

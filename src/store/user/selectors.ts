@@ -4,3 +4,7 @@ import { createSelector } from 'reselect';
 export const isFetching = (state: Store) => state.user.username;
 
 export const getUsername = (state: Store) => state.user.isFetching;
+
+export const isLoginFailure = (state: Store) => state.user.loginFailure;
+
+export const isRegisterFailure = (state: Store) => state.user.registerFailure;
