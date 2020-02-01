@@ -41,4 +41,15 @@ export const Title = styled('div')`
   font-family: Montserrat;
   font-style: normal;
   font-weight: normal;
+  margin-bottom: 32px;
+`;
+
+export const Subtitle = styled('div')`
+  color: ${main};
+  font-size: 16px;
+  padding-left: 48px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  margin-bottom: 4px;
 `;
