@@ -33,12 +33,13 @@ async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promi
   try {
     const isAuthenticated = Auth.isAuthorized;
     const isAuthorizing = endpoint.includes('login') || endpoint.includes('register');
-    if (!isAuthenticated && !isAuthorizing) {
+    const { public: isPublic, ...requestSettings } = settings;
+    if (!isAuthenticated && !isAuthorizing && !isPublic) {
       window.location.replace('/login');
     }
     const token = Auth.token;
     const options = {
-      ...settings,
+      ...requestSettings,
       url: `${apiUrl}/${endpoint}`,
       headers: {
         'Content-Type': 'application/json',
@@ -48,8 +49,9 @@ async function callApi(endpoint: string, settings: any, apiUrl = API_URL): Promi
     const response = await axios(options);
     return Promise.resolve(response);
   } catch (error) {
+    const { public: isPublic } = settings;
     const { status } = error.response;
-    if (status === 401 || status === 403) {
+    if ((status === 401 || status === 403) && !isPublic) {
       Auth.deauthorize();
       window.location.replace('/login');
     }

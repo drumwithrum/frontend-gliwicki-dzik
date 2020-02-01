@@ -17,6 +17,7 @@ class AppBar extends Component<AppBarProps> {
           gliwicki dzik
         </LogoContainer>
         <NavItemsContainer>
+          {console.log(routing.routeTitles)}
           {routing.routeTitles
             .map((item) => {
               const currentPath = window.location.pathname;

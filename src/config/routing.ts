@@ -21,6 +21,7 @@ class Routing {
   public static LOGIN = {
     url: '/login',
     title: 'Zaloguj',
+    unauthorized: true,
   };
   public static REGISTER = {
     url: '/register',
@@ -35,18 +36,33 @@ class Routing {
     title: 'Skrzynka odbiorcza',
     private: true,
   };
-  public static get routes(): { url: string; title: string; private?: boolean }[] {
+  public static get routes(): {
+    url: string;
+    title: string;
+    private?: boolean;
+    unauthorized?: boolean;
+  }[] {
     return [
       this.HOME,
       this.EXCERCISES,
       this.WORKOUTS,
       this.RANKING,
+      this.LOGIN,
     ];
   }
   public static get routeTitles(): string[] {
     const showPrivate = Auth.isAuthorized;
+    if (showPrivate) {
+      return this.routes
+        .filter((route) => (
+          !route.unauthorized
+        ))
+        .map((item) => item.title);
+    }
     return this.routes
-      .filter((route) => !route.private || (showPrivate && route.private))
+      .filter((route) => (
+        !route.private
+      ))
       .map((item) => item.title);
   }
   public static getUrl = (title: string): string => {
