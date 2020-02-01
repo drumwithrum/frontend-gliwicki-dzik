@@ -19,8 +19,13 @@ class UsersEndpoints {
   public static GET_CONTACTED_USERS = `${UsersEndpoints.BASE}/GetConvUsers`;
 }
 
+class ExcercisesEndpoints {
+  public static BASE = `${Auth.userId}/exercise`;
+}
+
 export default {
   AUTH: AuthEndpoints,
   MESSAGES: MessagesEndpoints,
   USERS: UsersEndpoints,
+  EXCERCISES: ExcercisesEndpoints,
 };
