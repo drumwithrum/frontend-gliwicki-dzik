@@ -1,24 +1,34 @@
 import React, { PureComponent } from 'react';
 import { Wrapper, Content, FieldWrapper } from './EditProfileForm.style';
-import Grid from '@material-ui/core/Grid';
-import { Input, Select } from 'components';
-import { reduxForm, InjectedFormProps, Field, Form } from 'redux-form';
+import { connect } from 'react-redux';
+import { fetchCurrentUser, editUser } from 'store/user/actions';
+import { getCurrentUser } from 'store/user/selectors';
+import { User, UserEditBody } from 'types/Api/user';
+import State from 'types/store';
+import { compose } from 'redux';
+import { Input } from 'components';
+import { reduxForm, InjectedFormProps, Field, Form, initialize } from 'redux-form';
 
-interface EditProfileFormProps extends InjectedFormProps {
+interface PassedProps {
   onSubmit?: () => void;
 }
 
-const genders = [{
-  title: 'Mężczyzna',
-  value: 'male',
-}, {
-  title: 'Kobieta',
-  value: 'female',
-}];
+interface EditProfileFormProps extends PassedProps, InjectedFormProps {
+  fetchCurrentUser: typeof fetchCurrentUser;
+  editUser: typeof editUser;
+  onInitialize: (form: string, data: object) => void;
+  currentUser: User | null;
+}
 
 class EditProfileForm extends PureComponent<EditProfileFormProps> {
   public static defaultProps = {
   };
+
+  public async componentDidMount() {
+    const { fetchCurrentUser } = this.props;
+    await fetchCurrentUser();
+    this.initializeForm();
+  }
 
   public render() {
     const { handleSubmit } = this.props;
@@ -28,7 +38,8 @@ class EditProfileForm extends PureComponent<EditProfileFormProps> {
           <Content container>
             <FieldWrapper item xs={6}>
               <Field
-                name="city"
+                placeholder="Wpisz swój kraj..."
+                name="country"
                 type="text"
                 component={Input}
                 label="Kraj"
@@ -36,18 +47,11 @@ class EditProfileForm extends PureComponent<EditProfileFormProps> {
             </FieldWrapper>
             <FieldWrapper item xs={6}>
               <Field
-                name="country"
+                placeholder="Wpisz swoje miasto..."
+                name="city"
                 type="text"
                 component={Input}
                 label="Miasto"
-              />
-            </FieldWrapper>
-            <FieldWrapper item xs={6}>
-              <Field
-                name="gender"
-                component={Select}
-                options={genders}
-                label="Płeć"
               />
             </FieldWrapper>
             <FieldWrapper item xs={6}>
@@ -61,7 +65,7 @@ class EditProfileForm extends PureComponent<EditProfileFormProps> {
             </FieldWrapper>
             <FieldWrapper item xs={6}>
               <Field
-                name="Height"
+                name="growth"
                 type="number"
                 component={Input}
                 label="Wzrost [cm]"
@@ -70,7 +74,7 @@ class EditProfileForm extends PureComponent<EditProfileFormProps> {
             </FieldWrapper>
             <FieldWrapper item xs={6}>
               <Field
-                name="bicepSize"
+                name="bicepssize"
                 type="number"
                 component={Input}
                 label="Rozmiar bicepsa [cm]"
@@ -82,10 +86,36 @@ class EditProfileForm extends PureComponent<EditProfileFormProps> {
       </Wrapper>
     );
   }
+  private initializeForm = () => {
+    const { currentUser, onInitialize } = this.props;
+    const data = currentUser!;
+    const formData: UserEditBody = {
+      bicepssize: data.bicepsSize || 0,
+      city: data.city || '',
+      country: data.country || '',
+      weight: data.weight || 0,
+      growth: data.growth || 0,
+    }
+    onInitialize('edit-profile-form', formData);
+  }
 
   private onSubmit = (values: any) => {
-    console.log(values);
+    const { editUser } = this.props;
+    editUser(values);
   }
 }
 
-export default reduxForm({ form: 'edit-profile-form' })(EditProfileForm);
+const mapStateToProps = (state: State) => ({
+  currentUser: getCurrentUser(state),
+});
+
+const mapDispatchToProps = {
+  onInitialize: initialize,
+  fetchCurrentUser,
+  editUser,
+};
+
+export default compose(
+  reduxForm({ form: 'edit-profile-form' }),
+  connect(mapStateToProps, mapDispatchToProps),
+)(EditProfileForm) as (props: PassedProps) => JSX.Element;

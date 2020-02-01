@@ -1,28 +1,25 @@
 import React, { PureComponent } from 'react';
-import { Wrapper, Layout, Content, BottomWrapper, Title } from './EditProfilePage.style';
+import { Wrapper, Layout, Content, BottomWrapper, Title, Subtitle } from './EditProfilePage.style';
 import { connect } from 'react-redux';
-import { fetchCurrentUser } from 'store/user/actions';
 import State from 'types/store';
+import { getCurrentUser } from 'store/user/selectors';
 import EditProfileForm from './EditProfileForm';
+import { getDate } from 'utils/date';
+import { User } from 'types/Api/user';
 import { Button } from 'components';
 import { submit } from 'redux-form';
 
 interface EditProfilePageProps {
   submit: typeof submit;
-  fetchCurrentUser: typeof fetchCurrentUser;
+  currentUser: User | null;
 }
 
 class EditProfilePage extends PureComponent<EditProfilePageProps> {
   public static defaultProps = {
   };
 
-  public componentDidMount() {
-    const { fetchCurrentUser } = this.props;
-    fetchCurrentUser();
-  }
-
   public render() {
-    const { submit } = this.props;
+    const { submit, currentUser } = this.props;
     return(
       <Wrapper>
         <Layout />
@@ -30,6 +27,7 @@ class EditProfilePage extends PureComponent<EditProfilePageProps> {
           <Title>
             Edytuj swój profil
           </Title>
+          {currentUser && this.renderUserData()}
           <EditProfileForm />
           <BottomWrapper>
             <Button onClick={() => submit('edit-profile-form')}>Zapisz</Button>
@@ -38,13 +36,33 @@ class EditProfilePage extends PureComponent<EditProfilePageProps> {
       </Wrapper>
     );
   }
+
+  private renderUserData = () => {
+    const { currentUser } = this.props;
+    const user = currentUser!;
+    let genderTitle = user.gender.includes('female') ? 'Zalogowana dzikuska: ' : 'Zalogowany dzikus: ';
+    genderTitle = `${genderTitle}${user.username}`;
+    return (
+      <>
+        <Subtitle>
+          {genderTitle}
+        </Subtitle>
+        <Subtitle>
+          {`Twój email: ${user.email}`}
+        </Subtitle>
+        <Subtitle>
+          {`Jesteś z nami od: ${getDate(user.dateOfCreated)}`}
+        </Subtitle>
+      </>
+    );
+  }
 }
 
 const mapStateToProps = (state: State) => ({
+  currentUser: getCurrentUser(state),
 });
 
 const mapDispatchToProps = {
-  fetchCurrentUser,
   submit,
 };
 

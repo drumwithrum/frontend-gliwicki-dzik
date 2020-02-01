@@ -8,3 +8,5 @@ export const getUsername = (state: Store) => state.user.isFetching;
 export const isLoginFailure = (state: Store) => state.user.loginFailure;
 
 export const isRegisterFailure = (state: Store) => state.user.registerFailure;
+
+export const getCurrentUser = (state: Store) => state.user.currentUser;
