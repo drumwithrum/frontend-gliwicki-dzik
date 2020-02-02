@@ -4,6 +4,7 @@ import {format} from 'date-fns';
 
 import biceps from '../images/biceps.jpg';
 import {SingleUser} from 'types/store/SingleUserStore';
+import { getDate } from 'utils/date';
 
 interface SingleUserProfileProps {
   user: SingleUser | null;
@@ -48,7 +49,7 @@ const SingleUserProfile: FC<SingleUserProfileProps> = ({user}: SingleUserProfile
               Data dołączenia:
             </Label>
             <UserInfoTxt>
-              {format(user.dateOfCreated, 'YYYY-MM-DD')}
+              {getDate(user.dateOfCreated)}
             </UserInfoTxt>
           </LabeledValue>
           <LabeledValue>
@@ -56,7 +57,7 @@ const SingleUserProfile: FC<SingleUserProfileProps> = ({user}: SingleUserProfile
               Ostatnia Aktywność:
             </Label>
             <UserInfoTxt>
-              {format(user.lastActive, 'YYYY-MM-DD')}
+              {getDate(user.lastActive)}
             </UserInfoTxt>
           </LabeledValue>
           <SubTitle>
