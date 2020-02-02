@@ -26,7 +26,7 @@ export const Router = (
     <UnauthorizedRoute exact path={Routing.REGISTER.url} component={RegisterPage} />
     <Route exact path={Routing.EXCERCISES.url} component={ExcercisesPage} />
     <PrivateRoute exact path={Routing.WORKOUTS.url} component={WorkoutsPage} />
-    <PrivateRoute exact path={Routing.USERS.url} component={() => <UsersPage {...{history}}/>} />
+    <PrivateRoute exact path={Routing.USERS.url} component={UsersPage} />
     <Route exact path={Routing.SINGLE_USER.url} component={SingleUserPage} />
     <Route exact path={Routing.RANKING.url} component={RankingPage} />
     <Route exact path={Routing.PROFILE.url} component={EditProfilePage} />

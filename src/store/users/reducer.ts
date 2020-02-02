@@ -20,6 +20,7 @@ export default (state = initialState, action: CallApiActionResponse) => {
       return {
         ...state,
         isFetching: false,
+        error: null,
         data,
       };
     }

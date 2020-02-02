@@ -1,48 +1,41 @@
-import React, {FC, useEffect, useState} from 'react';
-import {Wrapper, InputWrapper, Title} from './UserList.styles';
-import {getUsers} from 'store/users/actions';
+import React, {FC, useState} from 'react';
+import {RouteComponentProps, withRouter} from 'react-router';
+import {InputWrapper} from './UserList.styles';
 import SearchIcon from 'views/ExcercisesPage/images/search.svg';
 import {Input} from 'components/index';
 import StaticTable from 'components/StaticTable';
 import Button from 'components/Button';
+import {User} from 'types/store/UsersStore';
 
-const users = [
-  {
-    name: 'fafa',
-    lastName: 'cos',
-    id: 'fafffgfdsgwt2',
-  },
-  {
-    name: 'fafafaf',
-    lastName: 'fafa',
-    id: 'asdr32t',
-  },
-];
+const headers = ['NO', 'Imie', 'Płeć', 'Wiek', 'Waga', 'Rozmiar bicepsa', 'Profil'];
 
-const headers = ['ID', 'imie', 'nazwisko', 'profil'];
+interface OwnProps {
+  users: User[];
+}
 
-const UserList: FC<any> = (props: any) => {
+type UsersListProps = OwnProps & RouteComponentProps;
+
+const UserList: FC<UsersListProps> = (props: UsersListProps) => {
+  const {users} = props;
   const [searchInputValue, setSearchInputValue] = useState('');
-  const dataItems = users.filter((item) => item.name.toLowerCase().includes(searchInputValue));
+  const dataItems = users.filter((item) => item.username.toLowerCase().includes(searchInputValue));
   const onInputChange = (value: string): void => setSearchInputValue(value.trim().toLowerCase());
   const getRows = () => dataItems.map((elem, index) => ({
     id: index + 1,
-    name: elem.name,
-    lastName: elem.lastName,
+    name: elem.username,
+    gender: elem.gender,
+    age: elem.age,
+    weight: elem.weight,
+    bicepsSize: elem.bicepsSize,
     action: (
-      <Button onClick={() => props.history.push('/users/user/:id')}>
-        Zobacz Profil
+      <Button onClick={() => props.history.push(`/users/user/${elem.userId}`)}>
+        Profil
       </Button>
     ),
   }));
-  useEffect(() => {
-    getUsers();
-  }, []);
+
   return (
-    <Wrapper>
-      <Title>
-        Sprawdz jakiegos dzika !
-      </Title>
+    <>
       <InputWrapper>
         <Input
           name="search"
@@ -54,8 +47,8 @@ const UserList: FC<any> = (props: any) => {
      <div>
        <StaticTable rows={getRows()} headers={headers} />
      </div>
-    </Wrapper>
+    </>
   );
 };
 
-export default UserList;
+export default withRouter(UserList);

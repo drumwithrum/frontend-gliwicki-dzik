@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper, Layout, Content, Container, ErrorMessage } from './RankingPage.style';
+import { Wrapper, Layout, Content, Container, ErrorMessage, Title } from './RankingPage.style';
 import RankingTable from './RankingTable';
 import {connect} from 'react-redux';
 import {getUsers} from 'store/users/actions';
@@ -8,7 +8,7 @@ import Store, {Error, User, RankingUser} from '../../types/store/UsersStore';
 import Loader from 'components/Loader';
 
 interface DispatchProps {
-  getUsers(): void;
+  getUsers(params: {[key: string]: number | string}): void;
 }
 
 interface StateProps {
@@ -22,7 +22,7 @@ type Props = DispatchProps & StateProps;
 class RankingPage extends React.Component<Props> {
   public componentDidMount(): void {
     const {getUsers} = this.props;
-    getUsers();
+    getUsers({PageSize: 10});
   }
 
   public getHeaders() {
@@ -45,10 +45,10 @@ class RankingPage extends React.Component<Props> {
 
   public renderContent(): JSX.Element {
     const {isFetching, error} = this.props;
-    if(isFetching) {
+    if (isFetching) {
       return <Loader />;
     }
-    if(error){
+    if (error) {
       return <ErrorMessage>{error.message}</ErrorMessage>;
     }
     return <RankingTable rows={this.getTableData()} headers={this.getHeaders()}/>;
@@ -60,6 +60,9 @@ class RankingPage extends React.Component<Props> {
         <Layout />
         <Content>
           <Container>
+            <Title>
+              Raking Bicepsów!
+            </Title>
             {this.renderContent()}
           </Container>
         </Content>

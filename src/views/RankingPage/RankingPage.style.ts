@@ -39,6 +39,18 @@ export const Container = styled('div')`
   justify-content: center;
 `;
 
+export const Title = styled('div')`
+  font-size: ${(p: any) => p.size || 16}px;
+  font-family: Montserrat;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  color: ${main};
+`;
+
 export const ErrorMessage = styled('p')`
   font-size: 1.5em;
   color: red;

@@ -22,7 +22,7 @@ export interface Error {
 }
 
 export interface State {
-  data?: User[];
+  data: User[];
   isFetching: boolean;
   error?: null | Error;
 }

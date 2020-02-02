@@ -24,10 +24,33 @@ export const Layout = styled('div')`
 
 export const Content = styled('div')`
   z-index: 99;
-  min-width: 500px;
-  min-height: 500px;
 `;
 
-export const Title = styled('h1')`
+export const Container = styled('div')`
+  box-sizing:border-box;
+  display: flex;
+  flex-direction: ${(p: any) => p.flex || 'row'};
+  padding: 16px;
+  background-color: ${white};
+  align-items: center;
+  flex-direction: column;
+  min-width: 500px;
+  min-height: 500px;
+  max-height: 800px;
+  overflow-y: scroll;
+`;
 
+export const Title = styled('p')`
+  font-size: ${(p: any) => p.size || 16}px;
+  font-family: Montserrat;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 500;
+`;
+
+export const ErrorTxt = styled('p')`
+  font-size: 1.5em;
+  color: red;
+  text-align: center;
 `;
