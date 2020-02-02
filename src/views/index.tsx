@@ -27,8 +27,8 @@ export const Router = (
     <Route exact path={Routing.EXCERCISES.url} component={ExcercisesPage} />
     <PrivateRoute exact path={Routing.WORKOUTS.url} component={WorkoutsPage} />
     <PrivateRoute exact path={Routing.USERS.url} component={UsersPage} />
-    <Route exact path={Routing.SINGLE_USER.url} component={SingleUserPage} />
-    <Route exact path={Routing.RANKING.url} component={RankingPage} />
+    <PrivateRoute exact path={Routing.SINGLE_USER.url} component={SingleUserPage} />
+    <PrivateRoute exact path={Routing.RANKING.url} component={RankingPage} />
     <Route exact path={Routing.PROFILE.url} component={EditProfilePage} />
     <Route exact path={Routing.MAIL.url} component={MailPage} />
     <Route path="*" render={() => <Redirect to="/home" />} />
