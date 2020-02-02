@@ -32,7 +32,7 @@ class WorkoutsPage extends Component<WorkoutsPageProps> {
       <Wrapper>
         <Layout />
         <Content>
-          <WorkoutsMenu workouts={workouts} />
+          <WorkoutsMenu />
         </Content>
       </Wrapper>
     );

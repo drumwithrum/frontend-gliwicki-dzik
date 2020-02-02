@@ -15,3 +15,14 @@ export interface Workout {
   name: string;
   exercises: WorkoutExcercise[];
 }
+
+export interface Workout {
+  name: string;
+  exercises: WorkoutExcercise[];
+}
+
+export interface WorkoutApi {
+  name: string;
+  id?: string | number;
+  exercises: any[];
+}

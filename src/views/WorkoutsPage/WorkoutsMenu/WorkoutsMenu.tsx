@@ -10,10 +10,10 @@ interface PassedProps {
 }
 
 interface WorkoutsMenuProps extends PassedProps{
-  workouts?: any[];
-  excercises?: any[]
+  workouts: any[];
+  excercises?: any[];
   trainingPlan?: any[];
-  addWorkout: typeof addWorkout,
+  addWorkout: typeof addWorkout;
 }
 
 const columns = {
@@ -150,7 +150,7 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
 
 const mapStateToProps = (state: any) => ({
   excercises: getExcercisesList(state),
-  // excercises: getExcercisesList(state),
+  workouts: getWorkouts(state),
 });
 
 const mapDispatchToProps = {
