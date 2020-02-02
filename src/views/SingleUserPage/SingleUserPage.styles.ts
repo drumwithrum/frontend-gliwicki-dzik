@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import {View} from 'components';
-import backgroundSrc from './images/gym.jpg';
-import {style} from 'config/index';
+import { View } from 'components';
+import backgroundSrc from '../RankingPage/images/gym.jpg';
+import { style } from 'config';
 
 const { palette: { white, grey, black, primary: { main } } } = style;
 
@@ -29,29 +29,16 @@ export const Content = styled('div')`
 export const Container = styled('div')`
   box-sizing:border-box;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: ${(p: any) => p.flex || 'row'};
   padding: 16px;
   background-color: ${white};
   align-items: ${(p: any) => p.align || 'center'};
+  min-width: 40vw;
+  max-width: 50vw;
   min-height: 500px;
-  min-width: 500px;
-  justify-content: center;
-`;
+` as any;
 
-export const Title = styled('div')`
-  font-size: ${(p: any) => p.size || 16}px;
-  font-family: Montserrat;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
-  color: ${main};
-`;
-
-export const ErrorMessage = styled('p')`
+export const ErrorTxt = styled('p')`
   font-size: 1.5em;
   color: red;
   text-align: center;

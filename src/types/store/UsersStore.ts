@@ -1,16 +1,22 @@
-export interface User {
-  name?: string;
+import {SingleUser} from './SingleUserStore';
+
+export interface RankingUser {
+  id: number;
+  name: string;
+  age: number;
+  weight: number;
+  bicepsSize: number;
 }
 
-export interface ErrorInterface {
+export interface Error {
   statusCode?: number;
   message?: string;
 }
 
 export interface State {
-  data?: User[];
+  data: SingleUser[];
   isFetching: boolean;
-  error?: null | ErrorInterface;
+  error?: null | Error;
 }
 
 export default interface Store {

@@ -36,6 +36,16 @@ class Routing {
     title: 'Skrzynka odbiorcza',
     private: true,
   };
+  public static USERS = {
+    url: '/users',
+    title: 'Dziki',
+    private: true,
+  };
+  public static SINGLE_USER = {
+    url: '/users/user/:id',
+    title: 'Dzik',
+    private: true,
+  };
   public static get routes(): {
     url: string;
     title: string;
@@ -48,6 +58,7 @@ class Routing {
       this.WORKOUTS,
       this.RANKING,
       this.LOGIN,
+      this.USERS,
     ];
   }
   public static get routeTitles(): string[] {

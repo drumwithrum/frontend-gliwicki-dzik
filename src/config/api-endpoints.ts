@@ -16,8 +16,9 @@ class MessagesEndpoints {
 class UsersEndpoints {
   public static BASE = `${Auth.userId}/user`;
   public static CURRENT_USER = `${UsersEndpoints.BASE}/me`;
-  public static GET_USERS = `${UsersEndpoints.BASE}/GetUsers`;
-  public static GET_CONTACTED_USERS = `${UsersEndpoints.BASE}/GetConvUsers`;
+  public static GET_USERS = `${UsersEndpoints.BASE}`;
+  public static GET_USERS_RECORDS = `${UsersEndpoints.BASE}/records`;
+  public static GET_SINGLE_USER = (userId: number) => `${UsersEndpoints.BASE}/${userId}`;
 }
 
 class ExcercisesEndpoints {

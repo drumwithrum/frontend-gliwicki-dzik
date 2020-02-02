@@ -11,11 +11,11 @@ const initialState: State = {
 
 export default (state = initialState, action: CallApiActionResponse) => {
   switch (action.type) {
-    case types.USERS_REQUEST: return {
+    case types.USERS_RECORDS_REQUEST: return {
       ...state,
       isFetching: true,
     };
-    case types.USERS_SUCCESS: {
+    case types.USERS_RECORDS_SUCCESS: {
       const { data } = action.response;
       return {
         ...state,
@@ -24,7 +24,7 @@ export default (state = initialState, action: CallApiActionResponse) => {
         data,
       };
     }
-    case types.USERS_FAILURE: {
+    case types.USERS_RECORDS_FAILURE: {
       return {
         ...state,
         isFetching: false,

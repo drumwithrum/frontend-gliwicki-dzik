@@ -1,21 +1,21 @@
-import { State } from 'types/store/UsersStore';
+import { State, SingleUser } from 'types/store/SingleUserStore';
 import { CallApiActionResponse } from 'store/middleware/api';
 
 import types from './types';
 
 const initialState: State = {
-  data: [],
+  data: null,
   isFetching: false,
   error: null,
 };
 
 export default (state = initialState, action: CallApiActionResponse) => {
   switch (action.type) {
-    case types.USERS_REQUEST: return {
+    case types.SINGLE_USER_REQUEST: return {
       ...state,
       isFetching: true,
     };
-    case types.USERS_SUCCESS: {
+    case types.SINGLE_USER_SUCCESS: {
       const { data } = action.response;
       return {
         ...state,
@@ -24,7 +24,7 @@ export default (state = initialState, action: CallApiActionResponse) => {
         data,
       };
     }
-    case types.USERS_FAILURE: {
+    case types.SINGLE_USER_FAILURE: {
       return {
         ...state,
         isFetching: false,

@@ -7,6 +7,9 @@ import UserStore from './user/reducer';
 import MessagesStore from './messages/reducer';
 import ExcercisesStore from './excercises/reducer';
 import UiStore from './ui/reducer';
+import UsersStore from './users/reducer';
+import SingleUserStore from './singleUser/reducer';
+import UsersRecordsStore from './usersRecords/reducer';
 
 const appReducer = (history: History<any>) => combineReducers({
   form,
@@ -15,6 +18,9 @@ const appReducer = (history: History<any>) => combineReducers({
   messages: MessagesStore,
   ui: UiStore,
   excercises: ExcercisesStore,
+  users: UsersStore,
+  singleUser: SingleUserStore,
+  usersRecords: UsersRecordsStore,
   router: connectRouter(history),
 });
 
