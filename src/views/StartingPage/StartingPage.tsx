@@ -7,7 +7,7 @@ interface StartingPageProps {
 const StartingPage: FC = (props: StartingPageProps) => {
   return (
     <View>
-      Here tu kontent
+      W przyszłości będzie tu opis strony i zespołu
     </View>
   );
 };
