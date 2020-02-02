@@ -46,7 +46,7 @@ class UsersPage extends React.Component<UsersPageProps, UsersPageState> {
       if (error) {
         return <ErrorTxt>{error.message}</ErrorTxt>;
       }
-      return <UserList users={data} />;
+      return <UserList pageNumber={this.state.page} users={data} />;
   }
   public render() {
     const {data} = this.props;

@@ -3,8 +3,8 @@ export interface SingleUser {
   username: string;
   email: string;
   gender: string;
-  dateOfCreated: string;
-  lastActive: string;
+  dateOfCreated: any;
+  lastActive: any;
   city: string;
   country: string;
   age: number;

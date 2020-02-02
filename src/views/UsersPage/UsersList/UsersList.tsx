@@ -11,17 +11,18 @@ const headers = ['NO', 'Imie', 'Płeć', 'Wiek', 'Waga', 'Rozmiar bicepsa', 'Pro
 
 interface OwnProps {
   users: SingleUser[];
+  pageNumber: number;
 }
 
 type UsersListProps = OwnProps & RouteComponentProps;
 
 const UserList: FC<UsersListProps> = (props: UsersListProps) => {
-  const {users} = props;
+  const {users, pageNumber} = props;
   const [searchInputValue, setSearchInputValue] = useState('');
   const dataItems = users.filter((item) => item.username.toLowerCase().includes(searchInputValue));
   const onInputChange = (value: string): void => setSearchInputValue(value.trim().toLowerCase());
   const getRows = () => dataItems.map((elem, index) => ({
-    id: index + 1,
+    id: (pageNumber - 1) * 10 + index + 1,
     name: elem.username,
     gender: elem.gender,
     age: elem.age,
