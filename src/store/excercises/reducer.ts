@@ -54,10 +54,8 @@ export default (state = initialState, action: CallApiActionResponse) => {
       isFetching: true,
     };
     case types.ADD_WORKOUT_SUCCESS: {
-      const { data: workouts } = action.response;
       return {
         ...state,
-        workouts,
       };
     }
     case types.ADD_WORKOUT_FAILURE: {

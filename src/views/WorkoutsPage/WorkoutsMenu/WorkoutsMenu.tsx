@@ -2,7 +2,9 @@ import React, { FC, useState } from 'react';
 import ExcercisesList from './ExcercisesList';
 import { connect } from 'react-redux';
 import { getExcercisesList, getWorkouts } from 'store/excercises/selectors';
+import { getColums } from 'store/ui/selectors';
 import { addWorkout } from 'store/excercises/actions';
+import { updateTableColumns, addTrainingToTable } from 'store/ui/actions';
 import { Input, Table } from 'components';
 import { Wrapper, ListWrapper, Title, Button, Body, Footer } from './WorkoutsMenu.style';
 
@@ -11,55 +13,21 @@ interface PassedProps {
 
 interface WorkoutsMenuProps extends PassedProps{
   workouts: any[];
+  columns: any;
   excercises?: any[];
   trainingPlan?: any[];
   addWorkout: typeof addWorkout;
+  updateTableColumns: typeof updateTableColumns;
+  addTrainingToTable: typeof addTrainingToTable;
 }
-
-const columns = {
-  monday: {
-    title: 'Poniedziałek',
-    itemIds: [
-      '1',
-      '2',
-    ],
-  },
-  tuesday: {
-    title: 'Wtorek',
-    itemIds: [
-      '3',
-      '4',
-    ],
-  },
-  wednesday: {
-    title: 'Środa',
-    itemIds: [
-      '5',
-      '6',
-    ],
-  },
-  thursday: {
-    title: 'Czwartek',
-    itemIds: [],
-  },
-  friday: {
-    title: 'Piątek',
-    itemIds: [],
-  },
-  saturday: {
-    title: 'Sobota',
-    itemIds: [],
-  },
-  sunday: {
-    title: 'Niedziela',
-    itemIds: [],
-  },
-};
 
 const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
   workouts = [],
   excercises = [],
   addWorkout,
+  columns,
+  updateTableColumns,
+  addTrainingToTable,
 }) => {
   const [isAddingWorkout, setAddingWorkout] = useState(false);
   const [workoutTitle, setWorkoutTitle] = useState('');
@@ -133,7 +101,7 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
           <ExcercisesList
             onNewAdd={() => setAddingWorkout(true)}
             data={workouts}
-            onClick={addExcerciseToTraining}
+            onClick={addTrainingToTable}
             searchPlaceholder="Wyszukaj trening"
           />
         </ListWrapper>
@@ -141,7 +109,7 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
           <Title size={24}>
             Twój plan treningowy!
           </Title>
-          <Table columns={columns} />
+          <Table columns={columns} onChange={updateTableColumns} />
         </div>
       </Body>
     </Wrapper>
@@ -151,10 +119,13 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
 const mapStateToProps = (state: any) => ({
   excercises: getExcercisesList(state),
   workouts: getWorkouts(state),
+  columns: getColums(state),
 });
 
 const mapDispatchToProps = {
   addWorkout,
+  updateTableColumns,
+  addTrainingToTable,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkoutsMenu);

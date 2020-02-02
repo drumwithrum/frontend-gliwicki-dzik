@@ -4,6 +4,7 @@ import Column from './Column';
 import { Wrapper } from './Table.style';
 
 interface TableProps {
+  onChange?: (columns: any) => void;
   columns: {
     [key: string]: {
       title: string;
@@ -27,6 +28,7 @@ class Table extends Component<TableProps> {
   }
 
   public onDragEnd = (result: any): void => {
+    const { onChange } = this.props;
     const { destination, source, draggableId } = result;
     if (!destination) {
       return;
@@ -38,7 +40,7 @@ class Table extends Component<TableProps> {
     ) {
       return;
     }
-    const { columns } = this.state;
+    const { columns } = this.props;
     const keys = Object.keys(columns);
     const vals = Object.values(columns);
     let startItemIndex = 0;
@@ -69,6 +71,9 @@ class Table extends Component<TableProps> {
         [columnKey]: newColumn,
       };
       this.setState({ columns: newColumns });
+      if (onChange) {
+        onChange(newColumns);
+      }
       return;
     }
     const startColumnKey = keys[startItemIndex];
@@ -91,6 +96,9 @@ class Table extends Component<TableProps> {
       [finishColumnKey]: newFinish,
     };
     this.setState({ columns: newColumns });
+    if (onChange) {
+      onChange(newColumns);
+    }
   }
 
   public render() {
@@ -112,7 +120,7 @@ class Table extends Component<TableProps> {
   }
 
   private renderColumns = (): JSX.Element[] => {
-    const { columns } = this.state;
+    const { columns } = this.props;
     const cols = Object.values(columns);
     return cols.map((item: any) => (
       <Column title={item.title} items={this.getItems(item.itemIds)} key={item.title} />
