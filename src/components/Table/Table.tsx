@@ -28,19 +28,8 @@ class Table extends Component<TableProps> {
   }
 
   public onDragEnd = (result: any): void => {
-    const { onChange } = this.props;
+    const { onChange, columns } = this.props;
     const { destination, source, draggableId } = result;
-    if (!destination) {
-      return;
-    }
-
-    if (
-      destination.droppableId === source.droppableId
-        && destination.index === source.index
-    ) {
-      return;
-    }
-    const { columns } = this.props;
     const keys = Object.keys(columns);
     const vals = Object.values(columns);
     let startItemIndex = 0;
@@ -51,6 +40,32 @@ class Table extends Component<TableProps> {
         return item;
       }
     })!;
+    if (!destination) {
+      const columnKey = keys[startItemIndex];
+      const newItemIds = Array.from(start.itemIds);
+      newItemIds.splice(source.index, 1);
+      const newColumn = {
+        ...start,
+        itemIds: newItemIds,
+      };
+      const newColumns = {
+        ...columns,
+        [columnKey]: newColumn,
+      };
+      this.setState({ columns: newColumns });
+      if (onChange) {
+        onChange(newColumns);
+      }
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId
+        && destination.index === source.index
+    ) {
+      return;
+    }
+
     const finish: any = vals.find((item: any, index) => {
       if (item.title.includes(destination.droppableId)) {
         finishItemIndex = index;
