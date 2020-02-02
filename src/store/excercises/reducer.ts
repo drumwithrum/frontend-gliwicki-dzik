@@ -39,7 +39,7 @@ export default (state = initialState, action: CallApiActionResponse) => {
       const { data: workouts } = action.response;
       return {
         ...state,
-        workouts,
+        workouts: workouts || [],
       };
     }
     case types.FETCH_ALL_WORKOUTS_FAILURE: {
