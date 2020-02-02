@@ -33,7 +33,7 @@ const ExcercisesList: FC<ExcercisesListProps> = ({
   const handleClick = (id: string) => {
     if (!Boolean(onClick)) {
       return;
-    };
+    }
     onClick!(id);
   };
 
@@ -57,10 +57,10 @@ const ExcercisesList: FC<ExcercisesListProps> = ({
             <AddIcon>+</AddIcon>Dodaj trening
           </ListItem>
         )}
-        {listItems.map((item) => {
+        {listItems.map((item, index) => {
           return (
             <ListItem
-              key={item.title}
+              key={`${item.title}-${index}`}
               button
               onClick={() => handleClick(item.id)}
             >

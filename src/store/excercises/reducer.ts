@@ -6,6 +6,7 @@ import types from './types';
 const initialState: State = {
   isFetching: false,
   excercises: [],
+  addWorkoutFailure: false,
   workouts: [],
 };
 
@@ -16,7 +17,7 @@ export default (state = initialState, action: CallApiActionResponse) => {
       isFetching: true,
     };
     case types.FETCH_ALL_EXCERCISES_SUCCESS: {
-      const { data: excercises, } = action.response;
+      const { data: excercises } = action.response;
       return {
         ...state,
         excercises,
@@ -26,6 +27,44 @@ export default (state = initialState, action: CallApiActionResponse) => {
       return {
         ...state,
         isFetching: false,
+      };
+    }
+
+    case types.FETCH_ALL_WORKOUTS_REQUEST: return {
+      ...state,
+      isFetching: true,
+    };
+    case types.FETCH_ALL_WORKOUTS_SUCCESS: {
+      const { data: workouts } = action.response;
+      return {
+        ...state,
+        workouts,
+      };
+    }
+    case types.FETCH_ALL_WORKOUTS_FAILURE: {
+      return {
+        ...state,
+        isFetching: false,
+      };
+    }
+
+    case types.ADD_WORKOUT_REQUEST: return {
+      ...state,
+      addWorkoutFailure: false,
+      isFetching: true,
+    };
+    case types.ADD_WORKOUT_SUCCESS: {
+      const { data: workouts } = action.response;
+      return {
+        ...state,
+        workouts,
+      };
+    }
+    case types.ADD_WORKOUT_FAILURE: {
+      return {
+        ...state,
+        isFetching: false,
+        addWorkoutFailure: true,
       };
     }
 

@@ -17,7 +17,7 @@ export const fetchAllExcercises = () => ({
 
 export const fetchAllWorkouts = () => ({
   [CALL_API]: {
-    endpoint: api.WORKOUTS.BASE,
+    endpoint: `${api.WORKOUTS.BASE}?PageNumber=1&PageSize=2000`,
     types: [
       types.FETCH_ALL_WORKOUTS_REQUEST,
       types.FETCH_ALL_WORKOUTS_SUCCESS,
@@ -32,9 +32,9 @@ export const addWorkout = (data: Workout) => ({
     method: 'POST',
     data,
     types: [
-      types.ADD_TRAINING_REQUEST,
-      types.ADD_TRAINING_SUCCESS,
-      types.ADD_TRAINING_FAILURE,
+      types.ADD_WORKOUT_REQUEST,
+      types.ADD_WORKOUT_SUCCESS,
+      types.ADD_WORKOUT_FAILURE,
     ],
   },
 });

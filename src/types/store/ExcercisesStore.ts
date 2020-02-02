@@ -2,6 +2,7 @@ import { Excercise, Workout } from 'types/Api/excercises';
 
 export interface State {
   isFetching: boolean;
+  addWorkoutFailure: boolean;
   excercises: Excercise[];
   workouts: Workout[];
 }

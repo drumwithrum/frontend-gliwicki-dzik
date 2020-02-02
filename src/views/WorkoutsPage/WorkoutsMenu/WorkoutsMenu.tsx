@@ -1,11 +1,19 @@
 import React, { FC, useState } from 'react';
 import ExcercisesList from './ExcercisesList';
+import { connect } from 'react-redux';
+import { getExcercisesList, getWorkouts } from 'store/excercises/selectors';
+import { addWorkout } from 'store/excercises/actions';
 import { Input, Table } from 'components';
 import { Wrapper, ListWrapper, Title, Button, Body, Footer } from './WorkoutsMenu.style';
 
-interface WorkoutsMenuProps {
+interface PassedProps {
+}
+
+interface WorkoutsMenuProps extends PassedProps{
   workouts?: any[];
+  excercises?: any[]
   trainingPlan?: any[];
+  addWorkout: typeof addWorkout,
 }
 
 const columns = {
@@ -48,16 +56,10 @@ const columns = {
   },
 };
 
-const excercises = [{
-  id: '1',
-  title: 'Wyciskanie',
-}, {
-  id: '2',
-  title: 'jebanie',
-}];
-
 const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
   workouts = [],
+  excercises = [],
+  addWorkout,
 }) => {
   const [isAddingWorkout, setAddingWorkout] = useState(false);
   const [workoutTitle, setWorkoutTitle] = useState('');
@@ -71,6 +73,16 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
       excercise,
     ] as any;
     setWorkoutExcercises(newExcercises);
+  };
+
+  const onWorkoutAdd = async () => {
+    const data = {
+      name: workoutTitle,
+      exercises: workoutExcercises
+        .map((item: { id: string }) => ({ exerciseId: item.id, reps: 1, sets: 1 })),
+    };
+    await addWorkout(data);
+    setAddingWorkout(false);
   };
 
   const handleTitleChange = (value: string) => setWorkoutTitle(value);
@@ -108,7 +120,7 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
           </ListWrapper>
         </Body>
         <Footer>
-          <Button onClick={() => setAddingWorkout(false)}>Zapisz</Button>
+          <Button onClick={() => onWorkoutAdd()}>Zapisz</Button>
         </Footer>
       </Wrapper>
     );
@@ -136,4 +148,13 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
   );
 };
 
-export default WorkoutsMenu;
+const mapStateToProps = (state: any) => ({
+  excercises: getExcercisesList(state),
+  // excercises: getExcercisesList(state),
+});
+
+const mapDispatchToProps = {
+  addWorkout,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutsMenu);

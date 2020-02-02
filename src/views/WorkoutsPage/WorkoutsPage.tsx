@@ -1,8 +1,16 @@
-import React, { FC } from 'react';
+import React, { Component } from 'react';
+import { compose } from 'redux';
+import { withRouter, RouteComponentProps } from 'react-router';
+import { connect } from 'react-redux';
+import { fetchAllExcercises, fetchAllWorkouts } from 'store/excercises/actions';
+import { isAddWorkoutFailure } from 'store/excercises/selectors';
 import WorkoutsMenu from './WorkoutsMenu';
 import { Wrapper, Layout, Content } from './WorkoutsPage.style';
 
-interface WorkoutsPageProps {
+interface WorkoutsPageProps extends RouteComponentProps {
+  fetchAllExcercises: typeof fetchAllExcercises;
+  fetchAllWorkouts: typeof fetchAllWorkouts;
+  isAddWorkoutFailure: boolean;
 }
 
 const workouts = [{
@@ -13,15 +21,34 @@ const workouts = [{
   title: 'Łapy',
 }];
 
-const WorkoutsPage: FC = (props: WorkoutsPageProps) => {
-  return (
-    <Wrapper>
-      <Layout />
-      <Content>
-        <WorkoutsMenu workouts={workouts} />
-      </Content>
-    </Wrapper>
-  );
+class WorkoutsPage extends Component<WorkoutsPageProps> {
+  public componentDidMount() {
+    const { fetchAllExcercises, fetchAllWorkouts } = this.props;
+    fetchAllExcercises();
+    fetchAllWorkouts ();
+  }
+  public render() {
+    return (
+      <Wrapper>
+        <Layout />
+        <Content>
+          <WorkoutsMenu workouts={workouts} />
+        </Content>
+      </Wrapper>
+    );
+  }
+}
+
+const mapStateToProps = (state: any) => ({
+  isAddWorkoutFailure: isAddWorkoutFailure(state),
+});
+
+const mapDispatchToProps = {
+  fetchAllWorkouts,
+  fetchAllExcercises,
 };
 
-export default WorkoutsPage;
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps),
+)(WorkoutsPage) as () => JSX.Element;
