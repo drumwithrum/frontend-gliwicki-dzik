@@ -6,6 +6,7 @@ import types from './types';
 const initialState: State = {
   isFetching: false,
   excercises: [],
+  workouts: [],
 };
 
 export default (state = initialState, action: CallApiActionResponse) => {

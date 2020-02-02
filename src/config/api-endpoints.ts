@@ -24,9 +24,14 @@ class ExcercisesEndpoints {
   public static BASE = `${Auth.userId}/exercise`;
 }
 
+class WorkoutsEndpoints {
+  public static BASE = `${Auth.userId}/training`;
+}
+
 export default {
   AUTH: AuthEndpoints,
   MESSAGES: MessagesEndpoints,
   USERS: UsersEndpoints,
   EXCERCISES: ExcercisesEndpoints,
+  WORKOUTS: WorkoutsEndpoints,
 };
