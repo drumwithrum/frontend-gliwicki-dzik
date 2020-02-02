@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const { palette: { white, black, grey, primary } } = style;
 
-interface InputProps {
+interface SelectProps {
   color?: string;
   backgroundColor?: string;
 }
@@ -25,30 +25,30 @@ export const SelectBase = styled(Select)`
   outline: none;
   border: none;
   box-sizing: border-box;
-  background-color: ${(p: InputProps) => p.backgroundColor || white};
-  border: 2px solid ${(p: InputProps) => p.color || primary.main};
+  background-color: ${(p: SelectProps) => p.backgroundColor || white};
+  border: 2px solid ${(p: SelectProps) => p.color || primary.main};
   &::placeholder {
-    color: ${(p: InputProps) => p.color || primary.main}};
+    color: ${(p: SelectProps) => p.color || primary.main}};
   };
   & > div {
     padding-left: 15px;
-    color: ${(p: InputProps) => p.color || primary.main};
-    background-color: ${(p: InputProps) => p.backgroundColor || white};
+    color: ${(p: SelectProps) => p.color || primary.main};
+    background-color: ${(p: SelectProps) => p.backgroundColor || white};
     font-size: 12px;
     line-height: 15px;
     font-family: Montserrat;
     font-style: normal;
     font-weight: normal;
     &:focus {
-      background-color: ${(p: InputProps) => p.backgroundColor || white};
+      background-color: ${(p: SelectProps) => p.backgroundColor || white};
     }
   };
 ` as any;
 
 export const SelectItem = styled(MenuItem)`
     padding-left: 15px !important;
-    color: ${(p: InputProps) => p.color || primary.main} !important;
-    background-color: ${(p: InputProps) => p.backgroundColor || white} !important;
+    color: ${(p: SelectProps) => p.color || primary.main} !important;
+    background-color: ${(p: SelectProps) => p.backgroundColor || white} !important;
     font-size: 12px !important;
     line-height: 15px !important;
     font-family: Montserrat !important;
@@ -64,8 +64,8 @@ export const Icon = styled('img')`
   right: 10px;
 `;
 
-export const Label = styled.div<InputProps>`
+export const Label = styled.div<SelectProps>`
   font-family: Montserrat;
   font-size: 14px;
-  color: ${(p: any) => p.color || primary.main};
+  color: ${(p) => p.color || primary.main};
 `;

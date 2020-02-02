@@ -1,40 +1,35 @@
 import React, { FC, useState } from 'react';
 import ExcercisesList from './ExcercisesList';
+import { connect } from 'react-redux';
+import { getExcercisesList, getWorkouts } from 'store/excercises/selectors';
+import { getColums } from 'store/ui/selectors';
+import { addWorkout, fetchAllWorkouts } from 'store/excercises/actions';
+import { updateTableColumns, addTrainingToTable } from 'store/ui/actions';
 import { Input, Table } from 'components';
 import { Wrapper, ListWrapper, Title, Button, Body, Footer } from './WorkoutsMenu.style';
 
-interface WorkoutsMenuProps {
-  workouts?: any[];
-  trainingPlan?: any[];
+interface PassedProps {
 }
 
-const columns = {
-  monday: {
-    title: 'Poniedziałek',
-    itemIds: [
-      '1',
-      '2',
-    ],
-  },
-  tuesday: {
-    title: 'Wtorek',
-    itemIds: [
-      '3',
-      '4',
-    ],
-  },
-};
-
-const excercises = [{
-  id: '1',
-  title: 'Wyciskanie',
-}, {
-  id: '2',
-  title: 'jebanie',
-}];
+interface WorkoutsMenuProps extends PassedProps{
+  workouts: any[];
+  columns: any;
+  excercises?: any[];
+  trainingPlan?: any[];
+  addWorkout: typeof addWorkout;
+  updateTableColumns: typeof updateTableColumns;
+  addTrainingToTable: typeof addTrainingToTable;
+  fetchAllWorkouts: typeof fetchAllWorkouts;
+}
 
 const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
   workouts = [],
+  excercises = [],
+  addWorkout,
+  columns,
+  updateTableColumns,
+  addTrainingToTable,
+  fetchAllWorkouts,
 }) => {
   const [isAddingWorkout, setAddingWorkout] = useState(false);
   const [workoutTitle, setWorkoutTitle] = useState('');
@@ -50,16 +45,32 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
     setWorkoutExcercises(newExcercises);
   };
 
+  const removeExcerciseFromTraining = (excerciseId: string) => {
+    const newExcercises = workoutExcercises.filter((item: { id: string }) => item.id !== excerciseId) as any;
+    setWorkoutExcercises(newExcercises);
+  };
+
+  const onWorkoutAdd = async () => {
+    const data = {
+      name: workoutTitle,
+      exercises: workoutExcercises
+        .map((item: { id: string }) => ({ exerciseId: item.id, reps: 1, sets: 1 })),
+    };
+    await addWorkout(data);
+    await fetchAllWorkouts();
+    setAddingWorkout(false);
+  };
+
   const handleTitleChange = (value: string) => setWorkoutTitle(value);
 
   if (!workouts.length && !(isAddingWorkout || isAddingTrainingPlan)) {
     return (
       <Wrapper flex="column" justify="center">
         <Title>
-          Nie utworzyłeś jeszcze żadnego treningu, kliknij w przycisk obok aby go utworzyć
+          Nie utworzyłeś jeszcze żadnego treningu, kliknij w przycisk aby go utworzyć
         </Title>
         <Button onClick={() => setAddingWorkout(true)}>
-          Dodaj trening
+          Zapisz
         </Button>
       </Wrapper>
     );
@@ -81,11 +92,12 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
               data={workoutExcercises}
               disableSearch
               isAddingTraining={isAddingWorkout}
+              onClick={removeExcerciseFromTraining}
             />
           </ListWrapper>
         </Body>
         <Footer>
-          <Button>Zapisz</Button>
+          <Button onClick={() => onWorkoutAdd()}>Zapisz</Button>
         </Footer>
       </Wrapper>
     );
@@ -93,17 +105,37 @@ const WorkoutsMenu: FC<WorkoutsMenuProps> = ({
 
   return (
     <Wrapper flex="column">
-      <Title size={24}>
-        Twój plan treningowy!
-      </Title>
       <Body>
         <ListWrapper>
-          <ExcercisesList data={workouts} onClick={addExcerciseToTraining} searchPlaceholder="Wyszukaj trening" />
+          <ExcercisesList
+            onNewAdd={() => setAddingWorkout(true)}
+            data={workouts}
+            onClick={addTrainingToTable}
+            searchPlaceholder="Wyszukaj trening"
+          />
         </ListWrapper>
-        <Table columns={columns} />
+        <div>
+          <Title size={24}>
+            Twój plan treningowy!
+          </Title>
+          <Table columns={columns} onChange={updateTableColumns} items={workouts} />
+        </div>
       </Body>
     </Wrapper>
   );
 };
 
-export default WorkoutsMenu;
+const mapStateToProps = (state: any) => ({
+  excercises: getExcercisesList(state),
+  workouts: getWorkouts(state),
+  columns: getColums(state),
+});
+
+const mapDispatchToProps = {
+  addWorkout,
+  updateTableColumns,
+  addTrainingToTable,
+  fetchAllWorkouts,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutsMenu);

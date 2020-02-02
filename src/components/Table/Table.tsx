@@ -4,6 +4,11 @@ import Column from './Column';
 import { Wrapper } from './Table.style';
 
 interface TableProps {
+  onChange?: (columns: any) => void;
+  items?: {
+    title: string;
+    id: string | number;
+  }[];
   columns: {
     [key: string]: {
       title: string;
@@ -27,18 +32,8 @@ class Table extends Component<TableProps> {
   }
 
   public onDragEnd = (result: any): void => {
+    const { onChange, columns } = this.props;
     const { destination, source, draggableId } = result;
-    if (!destination) {
-      return;
-    }
-
-    if (
-      destination.droppableId === source.droppableId
-        && destination.index === source.index
-    ) {
-      return;
-    }
-    const { columns } = this.state;
     const keys = Object.keys(columns);
     const vals = Object.values(columns);
     let startItemIndex = 0;
@@ -49,6 +44,32 @@ class Table extends Component<TableProps> {
         return item;
       }
     })!;
+    if (!destination) {
+      const columnKey = keys[startItemIndex];
+      const newItemIds = Array.from(start.itemIds);
+      newItemIds.splice(source.index, 1);
+      const newColumn = {
+        ...start,
+        itemIds: newItemIds,
+      };
+      const newColumns = {
+        ...columns,
+        [columnKey]: newColumn,
+      };
+      this.setState({ columns: newColumns });
+      if (onChange) {
+        onChange(newColumns);
+      }
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId
+        && destination.index === source.index
+    ) {
+      return;
+    }
+
     const finish: any = vals.find((item: any, index) => {
       if (item.title.includes(destination.droppableId)) {
         finishItemIndex = index;
@@ -69,6 +90,9 @@ class Table extends Component<TableProps> {
         [columnKey]: newColumn,
       };
       this.setState({ columns: newColumns });
+      if (onChange) {
+        onChange(newColumns);
+      }
       return;
     }
     const startColumnKey = keys[startItemIndex];
@@ -91,6 +115,9 @@ class Table extends Component<TableProps> {
       [finishColumnKey]: newFinish,
     };
     this.setState({ columns: newColumns });
+    if (onChange) {
+      onChange(newColumns);
+    }
   }
 
   public render() {
@@ -107,12 +134,24 @@ class Table extends Component<TableProps> {
   private getItems = (itemIds: string[]): {id: string; title: string}[] => {
     return itemIds.map((item) => ({
       id: item,
-      title: `Item o ID: ${item}`,
+      title: this.getTitleById(item),
     }));
   }
 
+  private getTitleById = (id: string | number) => {
+    const { items } = this.props;
+    if ((items && items.length < 1) || !items) {
+      return '';
+    }
+
+    const item = items!.find((item) => `${item.id}` === `${id}`.split('@')[0]);
+    return item
+      ? item.title
+      : '';
+  }
+
   private renderColumns = (): JSX.Element[] => {
-    const { columns } = this.state;
+    const { columns } = this.props;
     const cols = Object.values(columns);
     return cols.map((item: any) => (
       <Column title={item.title} items={this.getItems(item.itemIds)} key={item.title} />
