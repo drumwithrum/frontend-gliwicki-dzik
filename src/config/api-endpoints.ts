@@ -8,9 +8,9 @@ class AuthEndpoints {
 
 class MessagesEndpoints {
   public static BASE = `${Auth.userId}/message`;
-  public static ADD_MESSAGE = `${MessagesEndpoints.BASE}/AddMessage`;
-  public static GET_CONTACTED_USERS = `${MessagesEndpoints.BASE}/GetConvMessages`;
-  public static GET_THREAD = (recipientId: string | number) => `${MessagesEndpoints.BASE}/GetMessageThread/${recipientId}`;
+  public static GET_CONTACTED_USERS = `${MessagesEndpoints.BASE}/corresponded`;
+  public static ADD_MESSAGE = (recipientId: string | number) => `${MessagesEndpoints.BASE}`;
+  public static GET_THREAD = (recipientId: string | number) => `${MessagesEndpoints.BASE}/${recipientId}/thread`;
 }
 
 class UsersEndpoints {

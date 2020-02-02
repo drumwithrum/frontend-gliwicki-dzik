@@ -17,7 +17,7 @@ export const fetchThread = (recipientId: string | number) => ({
 
 export const addMessage = (message: Message) => ({
   [CALL_API]: {
-    endpoint: api.MESSAGES.ADD_MESSAGE,
+    endpoint: api.MESSAGES.ADD_MESSAGE(message.recipientId),
     method: 'POST',
     data: message,
     types: [
