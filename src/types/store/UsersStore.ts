@@ -1,8 +1,22 @@
 export interface User {
-  name?: string;
+  userId: number;
+  username: string;
+  gender: string;
+  age: number;
+  growth: number;
+  weight: number;
+  bicepsSize: number;
 }
 
-export interface ErrorInterface {
+export interface RankingUser {
+  id: number;
+  name: string;
+  age: number;
+  weight: number;
+  bicepsSize: number;
+}
+
+export interface Error {
   statusCode?: number;
   message?: string;
 }
@@ -10,7 +24,7 @@ export interface ErrorInterface {
 export interface State {
   data?: User[];
   isFetching: boolean;
-  error?: null | ErrorInterface;
+  error?: null | Error;
 }
 
 export default interface Store {

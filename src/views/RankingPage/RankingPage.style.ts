@@ -25,3 +25,22 @@ export const Layout = styled('div')`
 export const Content = styled('div')`
   z-index: 99;
 `;
+
+export const Container = styled('div')`
+  box-sizing:border-box;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: ${(p: any) => p.flex || 'row'};
+  padding: 16px;
+  background-color: ${white};
+  align-items: ${(p: any) => p.align || 'center'};
+  min-height: 500px;
+  min-width: 500px;
+  justify-content: center;
+`;
+
+export const ErrorMessage = styled('p')`
+  font-size: 1.5em;
+  color: red;
+  text-align: center;
+`;

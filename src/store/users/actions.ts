@@ -6,6 +6,9 @@ export const getUsers = () => ({
   [CALL_API]: {
     endpoint: api.USERS.GET_USERS,
     method: 'GET',
+    params: {
+      PageSize: 10,
+    },
     types: [
       types.USERS_REQUEST,
       types.USERS_SUCCESS,

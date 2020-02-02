@@ -1,6 +1,6 @@
-const USERS_REQUEST = '@user/LOGIN_REQUEST';
-const USERS_SUCCESS = '@user/LOGIN_SUCCESS';
-const USERS_FAILURE = '@user/LOGIN_FAILURE';
+const USERS_REQUEST = '@users/LOGIN_REQUEST';
+const USERS_SUCCESS = '@users/LOGIN_SUCCESS';
+const USERS_FAILURE = '@users/LOGIN_FAILURE';
 
 export default {
   USERS_REQUEST,

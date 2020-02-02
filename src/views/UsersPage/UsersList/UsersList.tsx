@@ -30,9 +30,9 @@ const UserList: FC<any> = (props: any) => {
     name: elem.name,
     lastName: elem.lastName,
     action: (
-        <Button onClick={() => props.history.push('/users/user/:id')}>
-          Zobacz Profil
-        </Button>
+      <Button onClick={() => props.history.push('/users/user/:id')}>
+        Zobacz Profil
+      </Button>
     ),
   }));
   useEffect(() => {

@@ -19,6 +19,7 @@ export default (state = initialState, action: CallApiActionResponse) => {
       const { data } = action.response;
       return {
         ...state,
+        isFetching: false,
         data,
       };
     }
