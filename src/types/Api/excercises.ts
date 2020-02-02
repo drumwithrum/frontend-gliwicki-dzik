@@ -26,3 +26,16 @@ export interface WorkoutApi {
   id?: string | number;
   exercises: any[];
 }
+
+export interface WorkoutPlan {
+  name?: string;
+  trainings: {
+    monday: number | string[];
+    tuesday: number | string[];
+    wednesday: number | string[];
+    thursday: number | string[];
+    friday: number | string[];
+    saturday: number | string[];
+    sunday: number | string[];
+  }[];
+}

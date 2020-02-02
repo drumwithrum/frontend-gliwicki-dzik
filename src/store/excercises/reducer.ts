@@ -7,6 +7,7 @@ const initialState: State = {
   isFetching: false,
   excercises: [],
   addWorkoutFailure: false,
+  updatePlanFailure: false,
   workouts: [],
 };
 
@@ -63,6 +64,24 @@ export default (state = initialState, action: CallApiActionResponse) => {
         ...state,
         isFetching: false,
         addWorkoutFailure: true,
+      };
+    }
+
+    case types.UPDATE_WORKOUT_PLAN_REQUEST: return {
+      ...state,
+      addWorkoutFailure: false,
+      isFetching: true,
+    };
+    case types.UPDATE_WORKOUT_PLAN_SUCCESS: {
+      return {
+        ...state,
+      };
+    }
+    case types.UPDATE_WORKOUT_PLAN_FAILURE: {
+      return {
+        ...state,
+        isFetching: false,
+        updatePlanFailure: true,
       };
     }
 

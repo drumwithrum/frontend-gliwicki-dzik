@@ -1,6 +1,6 @@
 import { CALL_API } from 'store/middleware/api';
 import { api } from 'config';
-import { Workout } from 'types/Api/excercises';
+import { Workout, WorkoutPlan } from 'types/Api/excercises';
 import types from './types';
 
 export const fetchAllExcercises = () => ({
@@ -35,6 +35,19 @@ export const addWorkout = (data: Workout) => ({
       types.ADD_WORKOUT_REQUEST,
       types.ADD_WORKOUT_SUCCESS,
       types.ADD_WORKOUT_FAILURE,
+    ],
+  },
+});
+
+export const updateWorkoutPlan = (data: WorkoutPlan) => ({
+  [CALL_API]: {
+    endpoint: api.PLAN.BASE,
+    method: 'POST',
+    data,
+    types: [
+      types.UPDATE_WORKOUT_PLAN_REQUEST,
+      types.UPDATE_WORKOUT_PLAN_SUCCESS,
+      types.UPDATE_WORKOUT_PLAN_FAILURE,
     ],
   },
 });
