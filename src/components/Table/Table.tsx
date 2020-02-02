@@ -5,6 +5,10 @@ import { Wrapper } from './Table.style';
 
 interface TableProps {
   onChange?: (columns: any) => void;
+  items?: {
+    title: string;
+    id: string | number;
+  }[];
   columns: {
     [key: string]: {
       title: string;
@@ -130,8 +134,20 @@ class Table extends Component<TableProps> {
   private getItems = (itemIds: string[]): {id: string; title: string}[] => {
     return itemIds.map((item) => ({
       id: item,
-      title: `Item o ID: ${item}`,
+      title: this.getTitleById(item),
     }));
+  }
+
+  private getTitleById = (id: string | number) => {
+    const { items } = this.props;
+    if ((items && items.length < 1) || !items) {
+      return '';
+    }
+
+    const item = items!.find((item) => `${item.id}` === `${id}`.split('@')[0]);
+    return item
+      ? item.title
+      : '';
   }
 
   private renderColumns = (): JSX.Element[] => {

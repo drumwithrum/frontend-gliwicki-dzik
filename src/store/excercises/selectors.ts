@@ -8,6 +8,6 @@ export const getExcercisesList =  (state: Store) => state.excercises.excercises
   .map((item) => ({ title: item.name, url: item.url, id: item.exerciseId }));
 
 export const getWorkouts = (state: Store) => state.excercises.workouts
-  .map((item) => ({ id: Math.floor(Math.random() * 100), title: item.name }));
+  .map((item, index) => ({ id: index, title: item.name }));
 
 export const isAddWorkoutFailure = (state: Store) => state.excercises.addWorkoutFailure;

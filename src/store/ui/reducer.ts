@@ -7,24 +7,15 @@ const initialState: State = {
   columns: {
     monday: {
       title: 'Poniedziałek',
-      itemIds: [
-        '1',
-        '2',
-      ],
+      itemIds: [],
     },
     tuesday: {
       title: 'Wtorek',
-      itemIds: [
-        '3',
-        '4',
-      ],
+      itemIds: [],
     },
     wednesday: {
       title: 'Środa',
-      itemIds: [
-        '5',
-        '6',
-      ],
+      itemIds: [],
     },
     thursday: {
       title: 'Czwartek',
