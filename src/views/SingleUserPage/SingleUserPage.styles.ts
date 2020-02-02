@@ -25,3 +25,21 @@ export const Layout = styled('div')`
 export const Content = styled('div')`
   z-index: 99;
 `;
+
+export const Container = styled('div')`
+  box-sizing:border-box;
+  display: flex;
+  flex-direction: ${(p: any) => p.flex || 'row'};
+  padding: 16px;
+  background-color: ${white};
+  align-items: ${(p: any) => p.align || 'center'};
+  min-width: 40vw;
+  max-width: 50vw;
+  min-height: 500px;
+` as any;
+
+export const ErrorTxt = styled('p')`
+  font-size: 1.5em;
+  color: red;
+  text-align: center;
+`;
