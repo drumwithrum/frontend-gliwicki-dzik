@@ -5,12 +5,12 @@ import SearchIcon from 'views/ExcercisesPage/images/search.svg';
 import {Input} from 'components/index';
 import StaticTable from 'components/StaticTable';
 import Button from 'components/Button';
-import {User} from 'types/store/UsersStore';
+import {SingleUser} from 'types/store/SingleUserStore';
 
 const headers = ['NO', 'Imie', 'Płeć', 'Wiek', 'Waga', 'Rozmiar bicepsa', 'Profil'];
 
 interface OwnProps {
-  users: User[];
+  users: SingleUser[];
 }
 
 type UsersListProps = OwnProps & RouteComponentProps;

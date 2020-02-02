@@ -1,12 +1,4 @@
-export interface User {
-  userId: number;
-  username: string;
-  gender: string;
-  age: number;
-  growth: number;
-  weight: number;
-  bicepsSize: number;
-}
+import {SingleUser} from './SingleUserStore';
 
 export interface RankingUser {
   id: number;
@@ -22,7 +14,7 @@ export interface Error {
 }
 
 export interface State {
-  data: User[];
+  data: SingleUser[];
   isFetching: boolean;
   error?: null | Error;
 }

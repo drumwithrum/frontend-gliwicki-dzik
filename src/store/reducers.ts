@@ -6,6 +6,7 @@ import { reducer as form } from 'redux-form';
 import UserStore from './user/reducer';
 import UsersStore from './users/reducer';
 import SingleUserStore from './singleUser/reducer';
+import UsersRecordsStore from './usersRecords/reducer';
 
 const appReducer = (history: History<any>) => combineReducers({
   form,
@@ -13,6 +14,7 @@ const appReducer = (history: History<any>) => combineReducers({
   user: UserStore,
   users: UsersStore,
   singleUser: SingleUserStore,
+  usersRecords: UsersRecordsStore,
   router: connectRouter(history),
 });
 

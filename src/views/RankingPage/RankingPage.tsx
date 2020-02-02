@@ -2,18 +2,19 @@ import React from 'react';
 import { Wrapper, Layout, Content, Container, ErrorMessage, Title } from './RankingPage.style';
 import RankingTable from './RankingTable';
 import {connect} from 'react-redux';
-import {getUsers} from 'store/users/actions';
-import {error, isFetching, users} from 'store/users/selector';
-import Store, {Error, User, RankingUser} from '../../types/store/UsersStore';
+import {getUsersRecords} from 'store/usersRecords/actions';
+import {error, isFetching, usersRecords} from 'store/usersRecords/selector';
+import Store, {UserRecord} from 'types/store/UsersRecordsStore';
+import {Error, RankingUser} from 'types/store/UsersStore';
 import Loader from 'components/Loader';
 
 interface DispatchProps {
-  getUsers(params: {[key: string]: number | string}): void;
+  getUsersRecords(params: {[key: string]: number | string}): void;
 }
 
 interface StateProps {
   isFetching: boolean;
-  data: User[] | undefined;
+  data: UserRecord[] | undefined;
   error?: Error | null;
 }
 
@@ -21,8 +22,8 @@ type Props = DispatchProps & StateProps;
 
 class RankingPage extends React.Component<Props> {
   public componentDidMount(): void {
-    const {getUsers} = this.props;
-    getUsers({PageSize: 10});
+    const {getUsersRecords} = this.props;
+    getUsersRecords({PageSize: 10});
   }
 
   public getHeaders() {
@@ -31,8 +32,7 @@ class RankingPage extends React.Component<Props> {
   public getTableData(): null | RankingUser[] {
     const {data} = this.props;
     return data ? data
-      .sort((a: User, b: User) => b.bicepsSize - a.bicepsSize)
-      .map((elem: User, index: number) => {
+      .map((elem: UserRecord, index: number) => {
         return {
           id: index + 1,
           name: elem.username,
@@ -73,12 +73,12 @@ class RankingPage extends React.Component<Props> {
 
 const mapStateToProps = (state: Store): StateProps => ({
   isFetching: isFetching(state),
-  data: users(state),
+  data: usersRecords(state),
   error: error(state),
 });
 
 const mapDispatchToProps = {
-  getUsers,
+  getUsersRecords,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RankingPage);

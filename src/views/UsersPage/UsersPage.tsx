@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {Layout, Wrapper, Content, Title, Container, ErrorTxt} from './Users.styles';
 import UserList from './UsersList/UsersList';
 import {getUsers} from 'store/users/actions';
-import Store, {Error, User} from 'types/store/UsersStore';
+import Store, {Error} from 'types/store/UsersStore';
+import {SingleUser} from 'types/store/SingleUserStore';
 import {error, isFetching, users} from 'store/users/selector';
 import Loader from 'components/Loader';
 import Pagination from 'components/Pagination';
@@ -14,7 +15,7 @@ interface DispatchProps {
 
 interface StateProps {
   isFetching: boolean;
-  data: User[];
+  data: SingleUser[];
   error?: Error | null;
 }
 
